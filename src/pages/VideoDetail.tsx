@@ -44,11 +44,13 @@ const VideoDetail = () => {
           {/* Video/Image Display */}
           <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
             {video.videoUrl ? (
-              <video
-                src={video.videoUrl}
-                controls
-                autoPlay
-                className="w-full h-full object-cover"
+              <iframe
+                src={`${video.videoUrl}${video.videoUrl.includes("?") ? "&" : "?"}autoplay=true&responsive=true`}
+                loading="lazy"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowFullScreen
+                className="w-full h-full border-0"
+                title={video.title}
               />
             ) : (
               <img
