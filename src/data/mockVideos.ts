@@ -61,6 +61,7 @@ export const filmVideos: Video[] = [
   { id: "f4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "films" },
   { id: "f5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
   { id: "f6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "films" },
+  { id: "f7", title: "The Shack", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "films" },
 ];
 
 const yt = (id: string, title: string, n: number): Video => ({
