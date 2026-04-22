@@ -13,10 +13,10 @@ const Contact = () => {
               For inquiries about projects, collaborations, or representations:
             </p>
             <a
-              href="mailto:hello@example.com"
+              href="mailto:heimirgestur@gmail.com"
               className="block font-mono text-sm text-foreground hover:text-muted-foreground transition-colors"
             >
-              hello@example.com
+              heimirgestur@gmail.com
             </a>
           </div>
           
@@ -26,7 +26,7 @@ const Contact = () => {
             </p>
             <div className="flex justify-center gap-6">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/heimirgestur/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-sm text-foreground hover:text-muted-foreground transition-colors"
@@ -34,7 +34,7 @@ const Contact = () => {
                 Instagram
               </a>
               <a
-                href="https://vimeo.com"
+                href="https://vimeo.com/user10633087"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-sm text-foreground hover:text-muted-foreground transition-colors"
