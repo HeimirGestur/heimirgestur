@@ -46,12 +46,12 @@ const G = {
 const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 
 export const selectedVideos: Video[] = [
-  { id: "1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "selected" },
+  { id: "6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "selected" },
   { id: "2", title: "Grace", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "selected" },
+  { id: "5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
+  { id: "1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "selected" },
   { id: "3", title: "Meal", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "selected" },
   { id: "4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "selected" },
-  { id: "5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
-  { id: "6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "selected" },
 ];
 
 export const filmVideos: Video[] = [
