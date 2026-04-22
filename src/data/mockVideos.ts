@@ -24,7 +24,7 @@ const HLS_BASE = "https://vz-7b18eadc-f58.b-cdn.net";
 const IFRAME_LIBRARY_ID = "642892";
 
 const hls = (guid: string) => `${HLS_BASE}/${guid}/playlist.m3u8`;
-const THUMB_VERSION = "20260422b";
+const THUMB_VERSION = "20260422c";
 const thumb = (guid: string) => `${HLS_BASE}/${guid}/thumbnail.jpg?v=${THUMB_VERSION}`;
 const iframeEmbed = (guid: string) =>
   `https://iframe.mediadelivery.net/embed/${IFRAME_LIBRARY_ID}/${guid}`;
