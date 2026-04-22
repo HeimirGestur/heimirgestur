@@ -48,7 +48,7 @@ const Index = () => {
             <div
               key={video.id}
               data-video-index={index}
-              className="animate-fade-in-up"
+              className="animate-fade-in-up max-w-5xl mx-auto"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <SelectedVideoCard
