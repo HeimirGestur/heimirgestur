@@ -16,146 +16,59 @@ export interface Video {
   category: "selected" | "films" | "music-videos" | "commercials";
 }
 
+const LIBRARY_ID = "642892";
+const embed = (guid: string) =>
+  `https://iframe.mediadelivery.net/embed/${LIBRARY_ID}/${guid}`;
+const thumb = (guid: string) =>
+  `https://vz-${LIBRARY_ID}.b-cdn.net/${guid}/thumbnail.jpg`;
+
+// Bunny Stream GUIDs
+const G = {
+  kjot: "3c367d6e-a39a-40e9-97fb-eabf94cfec6b",
+  grace: "98b41c6d-f706-482e-886c-1f6a28e012b4",
+  meal: "4031a81d-a2f6-4e2b-ad38-686e7a6bcc8d",
+  haiku: "2ea95e66-8cb7-4e49-a897-69e0bb2d2ada",
+  bobby: "6c6b72ee-6b9e-45c1-a916-74dddbdaa718",
+  cccc: "82d00c82-e06f-4a10-a9a0-0418b36cd2f8",
+  flood: "82d00c82-e06f-4a10-a9a0-0418b36cd2f8",
+  plesn: "dd3ebf2e-c4d1-45aa-b2f4-28555c3612f9",
+  thvotturinn: "3cf46997-d5e3-44bb-9eb0-aef9474d9f67",
+  brudurin: "1132130d-c020-405f-9103-a25553cb56c4",
+};
+
+// Fallback thumbnails (kept for cases where Bunny thumbnail isn't generated yet)
+const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
+
 export const selectedVideos: Video[] = [
-  {
-    id: "1",
-    title: "Rosalía - Berghain feat. Björk & Yves Tumor",
-    director: "Nicolas Méndez",
-    production: "CANADA",
-    thumbnail: film1,
-    category: "selected",
-  },
-  {
-    id: "2",
-    title: "Bonjour Tristesse",
-    director: "Durga Chew-Bose",
-    production: "Babenation, Elevation Pictures, Cinenovo",
-    thumbnail: film2,
-    category: "selected",
-  },
-  {
-    id: "3",
-    title: "All It Takes Is A Yes - Lufthansa",
-    director: "Niclas Larsson",
-    production: "Iconoclast",
-    thumbnail: film3,
-    category: "selected",
-  },
-  {
-    id: "4",
-    title: "Miu Miu - Miutine",
-    director: "Hailey Benton Gates",
-    production: "Psycho",
-    thumbnail: film4,
-    category: "selected",
-  },
-  {
-    id: "5",
-    title: "Mette - Mama's Eyes",
-    director: "Camille Summers-Valli",
-    production: "Artpractice Studio, Lovesong, Division",
-    thumbnail: film5,
-    category: "selected",
-  },
-  {
-    id: "6",
-    title: "The Golden Hour",
-    director: "Marcus Klein",
-    production: "Artisan Films",
-    thumbnail: film6,
-    category: "selected",
-  },
+  { id: "1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: embed(G.kjot), category: "selected" },
+  { id: "2", title: "Grace", thumbnail: thumb(G.grace), videoUrl: embed(G.grace), category: "selected" },
+  { id: "3", title: "Meal", thumbnail: thumb(G.meal), videoUrl: embed(G.meal), category: "selected" },
+  { id: "4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: embed(G.haiku), category: "selected" },
+  { id: "5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: embed(G.bobby), category: "selected" },
+  { id: "6", title: "Brúðurin", thumbnail: thumb(G.brudurin), videoUrl: embed(G.brudurin), category: "selected" },
 ];
 
 export const filmVideos: Video[] = [
-  {
-    id: "f1",
-    title: "Bonjour Tristesse",
-    thumbnail: film1,
-    category: "films",
-  },
-  {
-    id: "f2",
-    title: "Harka",
-    thumbnail: film2,
-    category: "films",
-  },
-  {
-    id: "f3",
-    title: "Masterpiece Mommy",
-    thumbnail: film3,
-    category: "films",
-  },
-  {
-    id: "f4",
-    title: "Flint",
-    thumbnail: film4,
-    category: "films",
-  },
-  {
-    id: "f5",
-    title: "Swim Hunt Run",
-    thumbnail: film5,
-    category: "films",
-  },
-  {
-    id: "f6",
-    title: "1608",
-    thumbnail: film6,
-    category: "films",
-  },
+  { id: "f1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: embed(G.kjot), category: "films" },
+  { id: "f2", title: "Grace", thumbnail: thumb(G.grace), videoUrl: embed(G.grace), category: "films" },
+  { id: "f3", title: "Meal", thumbnail: thumb(G.meal), videoUrl: embed(G.meal), category: "films" },
+  { id: "f4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: embed(G.haiku), category: "films" },
+  { id: "f5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: embed(G.bobby), category: "films" },
+  { id: "f6", title: "Brúðurin", thumbnail: thumb(G.brudurin), videoUrl: embed(G.brudurin), category: "films" },
 ];
 
 export const musicVideos: Video[] = [
-  {
-    id: "mv1",
-    title: "Rosalía - Berghain",
-    thumbnail: film1,
-    category: "music-videos",
-  },
-  {
-    id: "mv2",
-    title: "Mette - Mama's Eyes",
-    thumbnail: film2,
-    category: "music-videos",
-  },
-  {
-    id: "mv3",
-    title: "FKA twigs - Cellophane",
-    thumbnail: film3,
-    category: "music-videos",
-  },
-  {
-    id: "mv4",
-    title: "James Blake - Retrograde",
-    thumbnail: film4,
-    category: "music-videos",
-  },
+  { id: "mv1", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: embed(G.cccc), category: "music-videos" },
+  { id: "mv2", title: "Flood", thumbnail: thumb(G.flood), videoUrl: embed(G.flood), category: "music-videos" },
+  { id: "mv3", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: embed(G.plesn), category: "music-videos" },
+  { id: "mv4", title: "Þvotturinn", thumbnail: thumb(G.thvotturinn), videoUrl: embed(G.thvotturinn), category: "music-videos" },
 ];
 
 export const commercialVideos: Video[] = [
-  {
-    id: "c1",
-    title: "Lufthansa - All It Takes",
-    thumbnail: film3,
-    category: "commercials",
-  },
-  {
-    id: "c2",
-    title: "Miu Miu - Miutine",
-    thumbnail: film4,
-    category: "commercials",
-  },
-  {
-    id: "c3",
-    title: "Apple - Think Different",
-    thumbnail: film5,
-    category: "commercials",
-  },
-  {
-    id: "c4",
-    title: "Nike - Just Do It",
-    thumbnail: film6,
-    category: "commercials",
-  },
+  { id: "c1", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: embed(G.haiku), category: "commercials" },
+  { id: "c2", title: "Meal", thumbnail: thumb(G.meal), videoUrl: embed(G.meal), category: "commercials" },
+  { id: "c3", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: embed(G.bobby), category: "commercials" },
+  { id: "c4", title: "Grace", thumbnail: thumb(G.grace), videoUrl: embed(G.grace), category: "commercials" },
 ];
+
+export { fallbackThumbs };
