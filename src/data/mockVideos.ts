@@ -47,7 +47,7 @@ const G = {
 const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 
 export const selectedVideos: Video[] = [
-  { id: "6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "selected" },
+  { id: "6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "selected" },
   { id: "s-shack", title: "The Shack", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
   { id: "s-plesn", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
   { id: "s-flood", title: "Flood", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
@@ -56,7 +56,7 @@ export const selectedVideos: Video[] = [
 ];
 
 export const filmVideos: Video[] = [
-  { id: "f6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "films" },
+  { id: "f6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "films" },
   { id: "f7", title: "The Shack", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "films" },
   { id: "f9", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "films" },
   { id: "f10", title: "Flood", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "films" },
