@@ -12,10 +12,13 @@ export interface Video {
   director?: string;
   production?: string;
   thumbnail: string;
-  videoUrl?: string; // HLS .m3u8 URL or iframe embed URL
+  videoUrl?: string; // HLS .m3u8 URL, iframe embed URL, or YouTube video ID
   isIframe?: boolean; // true if videoUrl should be loaded in an <iframe> instead of <video>
+  isYoutube?: boolean; // true if videoUrl is a YouTube video ID
   category: "selected" | "films" | "music-videos" | "commercials";
 }
+
+const ytThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
 const HLS_BASE = "https://vz-7b18eadc-f58.b-cdn.net";
 const IFRAME_LIBRARY_ID = "642892";
@@ -60,11 +63,26 @@ export const filmVideos: Video[] = [
   { id: "f6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "films" },
 ];
 
+const yt = (id: string, title: string, n: number): Video => ({
+  id: `mv${n}`,
+  title,
+  thumbnail: ytThumb(id),
+  videoUrl: id,
+  isYoutube: true,
+  category: "music-videos",
+});
+
 export const musicVideos: Video[] = [
-  { id: "mv1", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: hls(G.cccc), category: "music-videos" },
-  { id: "mv2", title: "Flood", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "music-videos" },
-  { id: "mv3", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "music-videos" },
-  { id: "mv4", title: "The Shack", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "music-videos" },
+  yt("xKrtmXq1Uwg", "Grísalappalísa – Þrjúhundruðsextíuogfimmdagablús", 1),
+  yt("t5OlALTiQco", "Grísalappalísa – ABC", 2),
+  yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (Live á Húrra)", 3),
+  yt("sAH7HtQ8HOw", "Grísalappalísa – Kvæðaþjófurinn", 4),
+  yt("54lvlI2IRYw", "Veirumenn", 5),
+  yt("6nqVPyY0KAk", "Grísalappalísa – Hver er ég?", 6),
+  yt("cF5_sGFZ34A", "Andi – Lónólongó", 7),
+  yt("PYmAR4Z96dM", "Oyama – Siblings", 8),
+  yt("TwyNzFbJwbU", "Grísalappalísa – Skrítin birta", 9),
+  yt("YQAPMv5mE7I", "Grísalappalísa – Mjóddin", 10),
 ];
 
 export const commercialVideos: Video[] = [

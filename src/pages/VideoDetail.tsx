@@ -41,7 +41,16 @@ const VideoDetail = () => {
         <div className="w-full max-w-6xl">
           <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
             {video.videoUrl ? (
-              video.isIframe ? (
+              video.isYoutube ? (
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                  title={video.title}
+                />
+              ) : video.isIframe ? (
                 <iframe
                   src={`${video.videoUrl}${video.videoUrl.includes("?") ? "&" : "?"}autoplay=true&responsive=true`}
                   loading="lazy"
