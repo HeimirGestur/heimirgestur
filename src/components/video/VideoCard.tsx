@@ -9,6 +9,7 @@ interface VideoCardProps {
   thumbnail: string;
   videoUrl?: string;
   isIframe?: boolean;
+  isYoutube?: boolean;
   variant?: "large" | "small";
 }
 
@@ -17,6 +18,9 @@ const buildIframeHoverUrl = (url: string) => {
   return `${url}${sep}autoplay=true&muted=true&loop=true&preload=true&responsive=true`;
 };
 
+const buildYoutubeHoverUrl = (videoId: string) =>
+  `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&rel=0`;
+
 export const VideoCard = ({
   id,
   title,
@@ -24,6 +28,7 @@ export const VideoCard = ({
   thumbnail,
   videoUrl,
   isIframe = false,
+  isYoutube = false,
   variant = "small",
 }: VideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -53,7 +58,16 @@ export const VideoCard = ({
           />
 
           {videoUrl && isHovered && (
-            isIframe ? (
+            isYoutube ? (
+              <iframe
+                src={buildYoutubeHoverUrl(videoUrl)}
+                loading="lazy"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full border-0 pointer-events-none scale-150"
+                title={title}
+              />
+            ) : isIframe ? (
               <iframe
                 src={buildIframeHoverUrl(videoUrl)}
                 loading="lazy"
