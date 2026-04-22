@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { HlsVideo } from "./HlsVideo";
 
 interface VideoCardProps {
   id: string;
@@ -7,10 +8,11 @@ interface VideoCardProps {
   subtitle?: string;
   thumbnail: string;
   videoUrl?: string;
+  isIframe?: boolean;
   variant?: "large" | "small";
 }
 
-const buildHoverUrl = (url: string) => {
+const buildIframeHoverUrl = (url: string) => {
   const sep = url.includes("?") ? "&" : "?";
   return `${url}${sep}autoplay=true&muted=true&loop=true&preload=true&responsive=true`;
 };
@@ -21,6 +23,7 @@ export const VideoCard = ({
   subtitle,
   thumbnail,
   videoUrl,
+  isIframe = false,
   variant = "small",
 }: VideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -50,14 +53,26 @@ export const VideoCard = ({
           />
 
           {videoUrl && isHovered && (
-            <iframe
-              src={buildHoverUrl(videoUrl)}
-              loading="lazy"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
-              title={title}
-            />
+            isIframe ? (
+              <iframe
+                src={buildIframeHoverUrl(videoUrl)}
+                loading="lazy"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+                title={title}
+              />
+            ) : (
+              <HlsVideo
+                src={videoUrl}
+                poster={thumbnail}
+                autoPlay
+                muted
+                loop
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                title={title}
+              />
+            )
           )}
         </div>
       </article>

@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { selectedVideos, filmVideos, musicVideos, commercialVideos } from "@/data/mockVideos";
+import { HlsVideo } from "@/components/video/HlsVideo";
 
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>();
-  
-  // Find the video in all categories
+
   const allVideos = [...selectedVideos, ...filmVideos, ...musicVideos, ...commercialVideos];
   const video = allVideos.find((v) => v.id === id);
 
@@ -29,7 +29,6 @@ const VideoDetail = () => {
 
   return (
     <div className="min-h-screen bg-foreground text-primary-foreground">
-      {/* Back Button */}
       <Link
         to="/"
         className="fixed top-6 left-6 z-50 flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
@@ -38,20 +37,30 @@ const VideoDetail = () => {
         <span className="font-sans text-sm">Back</span>
       </Link>
 
-      {/* Video Player Area */}
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-6xl">
-          {/* Video/Image Display */}
           <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
             {video.videoUrl ? (
-              <iframe
-                src={`${video.videoUrl}${video.videoUrl.includes("?") ? "&" : "?"}autoplay=true&responsive=true`}
-                loading="lazy"
-                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                allowFullScreen
-                className="w-full h-full border-0"
-                title={video.title}
-              />
+              video.isIframe ? (
+                <iframe
+                  src={`${video.videoUrl}${video.videoUrl.includes("?") ? "&" : "?"}autoplay=true&responsive=true`}
+                  loading="lazy"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                  title={video.title}
+                />
+              ) : (
+                <HlsVideo
+                  src={video.videoUrl}
+                  poster={video.thumbnail}
+                  autoPlay
+                  muted={false}
+                  controls
+                  className="w-full h-full object-contain bg-black"
+                  title={video.title}
+                />
+              )
             ) : (
               <img
                 src={video.thumbnail}
@@ -61,7 +70,6 @@ const VideoDetail = () => {
             )}
           </div>
 
-          {/* Video Info */}
           <div className="text-center">
             <h1 className="font-sans text-2xl font-medium text-primary-foreground mb-4">
               {video.title}

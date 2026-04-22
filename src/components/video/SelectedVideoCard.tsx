@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { HlsVideo } from "./HlsVideo";
 
 interface SelectedVideoCardProps {
   id: string;
@@ -8,13 +9,14 @@ interface SelectedVideoCardProps {
   production?: string;
   thumbnail: string;
   videoUrl?: string;
+  isIframe?: boolean;
   isActive?: boolean;
   onProgress?: (progress: number) => void;
 }
 
-const buildAutoplayUrl = (url: string, autoplay: boolean) => {
+const buildIframeAutoplayUrl = (url: string) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=${autoplay ? "true" : "false"}&muted=true&loop=true&preload=true&responsive=true`;
+  return `${url}${sep}autoplay=true&muted=true&loop=true&preload=true&responsive=true`;
 };
 
 export const SelectedVideoCard = ({
@@ -24,29 +26,29 @@ export const SelectedVideoCard = ({
   production,
   thumbnail,
   videoUrl,
+  isIframe = false,
   isActive = false,
   onProgress,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const progressRef = useRef<number>(0);
 
   useEffect(() => {
     setShowVideo(isActive);
   }, [isActive]);
 
-  // Simulated progress for the bottom progress bar (Bunny iframe doesn't expose timeupdate)
+  // Simulated progress for iframe videos (no timeupdate available)
   useEffect(() => {
-    if (!isActive || !onProgress) return;
-    progressRef.current = 0;
+    if (!isActive || !onProgress || !isIframe) return;
+    let p = 0;
     onProgress(0);
     const interval = setInterval(() => {
-      progressRef.current = Math.min(progressRef.current + 0.5, 100);
-      onProgress(progressRef.current);
-      if (progressRef.current >= 100) progressRef.current = 0;
+      p = Math.min(p + 0.5, 100);
+      onProgress(p);
+      if (p >= 100) p = 0;
     }, 100);
     return () => clearInterval(interval);
-  }, [isActive, onProgress]);
+  }, [isActive, onProgress, isIframe]);
 
   return (
     <Link
@@ -69,14 +71,27 @@ export const SelectedVideoCard = ({
           />
 
           {videoUrl && showVideo && (
-            <iframe
-              src={buildAutoplayUrl(videoUrl, true)}
-              loading="lazy"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full border-0"
-              title={title}
-            />
+            isIframe ? (
+              <iframe
+                src={buildIframeAutoplayUrl(videoUrl)}
+                loading="lazy"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full border-0"
+                title={title}
+              />
+            ) : (
+              <HlsVideo
+                src={videoUrl}
+                poster={thumbnail}
+                autoPlay
+                muted
+                loop
+                className="absolute inset-0 w-full h-full object-cover"
+                onTimeUpdate={onProgress}
+                title={title}
+              />
+            )
           )}
         </div>
 
