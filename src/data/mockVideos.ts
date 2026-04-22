@@ -47,11 +47,11 @@ const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 
 export const selectedVideos: Video[] = [
   { id: "6", title: "The Bride", thumbnail: thumb(G.bride), videoUrl: iframeEmbed(G.bride), isIframe: true, category: "selected" },
-  { id: "2", title: "Grace", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "selected" },
+  { id: "s-shack", title: "The Shack", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
+  { id: "s-plesn", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
+  { id: "s-flood", title: "Flood", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
   { id: "5", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
-  { id: "3", title: "Meal", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "selected" },
-  { id: "4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "selected" },
-  { id: "1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "selected" },
+  { id: "2", title: "Grace", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "selected" },
 ];
 
 export const filmVideos: Video[] = [
