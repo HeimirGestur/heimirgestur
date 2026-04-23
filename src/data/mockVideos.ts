@@ -92,8 +92,8 @@ export const musicVideos: Video[] = [
 export const commercialVideos: Video[] = [
   { id: "c1", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "commercials" },
   { id: "c2", title: "Meal", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "commercials" },
-  { id: "c3", title: "Bobby", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "commercials" },
-  { id: "c4", title: "Grace", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "commercials" },
+  { id: "c3", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "commercials" },
+  { id: "c4", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "commercials" },
 ];
 
 export { fallbackThumbs };
