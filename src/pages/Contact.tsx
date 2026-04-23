@@ -20,6 +20,56 @@ const Contact = () => {
             </p>
           </div>
 
+          <div className="space-y-10 text-left mb-12">
+            <section>
+              <h2 className="font-sans text-lg text-foreground mb-3">Education</h2>
+              <p className="font-sans text-base text-muted-foreground leading-relaxed">
+                The National Film School in Łódź: Master of Arts and Bachelor of Arts in Cinematography.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-sans text-lg text-foreground mb-3">Selected Filmography</h2>
+
+              <h3 className="font-sans text-base text-foreground mt-4 mb-2">Director / Director of Photography</h3>
+              <ul className="space-y-1.5 font-sans text-base text-muted-foreground leading-relaxed">
+                <li>Passage (2026) | Camera: Arri Alexa LF | Lenses: Scorpio.</li>
+                <li>Shadow (2026).</li>
+                <li>PLEŚŃ (2024) | Camera: ARRI Alexa Mini | Lenses: Zeiss Super Speeds.</li>
+                <li>RYBA (2017) | Camera: MOVICAM SL 35mm | Lenses: Zeiss Super Speeds.</li>
+                <li>KJÖT (2013) | Camera: ARRI 435 35mm | Lenses: Zeiss T1 | Winner: Best Short at Örvarpið Festival.</li>
+              </ul>
+
+              <h3 className="font-sans text-base text-foreground mt-6 mb-2">Narrative & Short Films</h3>
+              <ul className="space-y-1.5 font-sans text-base text-muted-foreground leading-relaxed">
+                <li>The Bride (2024) | Dir: Hjördis Jóhannsdóttir | Camera: Red Weapon Helium | Winner: Best Icelandic Short at RIFF.</li>
+                <li>Þvottur (2018) | Dir: Sigurður Möller Sivertsen | Camera: Sony FS5.</li>
+                <li>GRACE (2016) | Dir: Sigurður Möller Sivertsen | Camera: RED ONE Mysterium X.</li>
+                <li>Bobby (2013) | Dir: Sigurður Möller Sivertsen | Camera: ARRI SL2 16mm.</li>
+                <li>Shots (2013) | Dir: Katherine Harrison | Camera: ARRI SL2 16mm.</li>
+                <li>Portrait: Petr Biel (2012) | Documentary | Dir: Sigurður Möller Sivertsen | Camera: Canon 5D MIII & 7D.</li>
+              </ul>
+
+              <h3 className="font-sans text-base text-foreground mt-6 mb-2">Commercials & Branded Content</h3>
+              <ul className="space-y-1.5 font-sans text-base text-muted-foreground leading-relaxed">
+                <li>Ittala & Byredo (2026) | Series of Advertisements | Dir: Heimir Gestur Valdimarsson | Camera: Arriflex 435.</li>
+                <li>Canada Goose (2026) | Dir: Hampus Nordenson | Camera: Arriflex 435 | Lenses: Cooke s4i.</li>
+                <li>Charity (2022) | Series of Advertisements | Dir: Ágúst Bent | Camera: Black Magic Pocket 4K.</li>
+              </ul>
+
+              <h3 className="font-sans text-base text-foreground mt-6 mb-2">Music Videos</h3>
+              <ul className="space-y-1.5 font-sans text-base text-muted-foreground leading-relaxed">
+                <li>Grísalappalísa – "Sjáðu hjónin" (2019) | Dir: Sigurður Möller Sivertsen | Camera: Arri Alexa LF.</li>
+                <li>Grísalappalísa – "Kvæðaþjófurinn" (2017) | Dir: Sigurður Möller Sivertsen | Camera: Black Magic Pocket 4K.</li>
+                <li>Andi – "Lónólongó" (2017) | Dir: Sigurður Möller Sivertsen | Camera: ARRI Alexa XT.</li>
+                <li>Grísalappalísa – "ABC" (2014) | Dir: Sigurður Möller Sivertsen | Camera: Canon MIII.</li>
+                <li>Grísalappalísa – "Live í Mjóddinni" (2013) | Dir: Sigurður Möller Sivertsen | Camera: Digibeta SX.</li>
+                <li>Grísalappalísa – "Skrítin birta" (2013) | Dir: Sigurður Möller Sivertsen | Camera: Canon 7D.</li>
+                <li>Grísalappalísa – "Hver er ég" (2013) | Dir: Sigurður Möller Sivertsen | Winner: Best Music Video at the Icelandic Music Awards.</li>
+              </ul>
+            </section>
+          </div>
+
           <div className="space-y-4">
             <a
               href="mailto:heimirgestur@gmail.com"
