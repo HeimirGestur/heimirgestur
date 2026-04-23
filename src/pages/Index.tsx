@@ -60,10 +60,10 @@ const Index = () => {
                 videoUrl={video.videoUrl}
                 isActive={activeIndex === index}
                 onProgress={activeIndex === index ? setProgress : undefined}
+                progressBar={
+                  <ProgressBar progress={activeIndex === index ? progress : 0} />
+                }
               />
-              <div className="mt-4">
-                <ProgressBar progress={activeIndex === index ? progress : 0} />
-              </div>
             </div>
           ))}
         </div>
