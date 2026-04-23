@@ -96,9 +96,9 @@ export const SelectedVideoCard = ({
         </div>
 
         <div className="mt-6 text-center max-w-3xl mx-auto px-4">
-          <h3 className="font-sans text-base font-medium text-foreground">{title}</h3>
+          <h3 className="font-sans text-sm font-medium text-foreground">{title}</h3>
           {(director || production) && (
-            <p className="font-sans text-sm text-muted-foreground mt-2">
+            <p className="font-sans text-xs text-muted-foreground mt-2">
               {director && <span>Director. {director}</span>}
               {director && production && <span>, </span>}
               {production && <span>Prod. {production}</span>}
