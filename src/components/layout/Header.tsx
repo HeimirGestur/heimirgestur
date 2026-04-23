@@ -19,7 +19,7 @@ export const Header = () => {
               <Link
                 to={item.path}
                 className={cn(
-                  "nav-link font-sans text-sm",
+                  "nav-link font-sans text-xs",
                   location.pathname === item.path && "nav-link-active"
                 )}
               >

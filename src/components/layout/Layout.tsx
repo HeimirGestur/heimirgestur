@@ -13,7 +13,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <main className="pt-16 pb-16">
         {children}
       </main>
-      <Footer name="Portfolio" />
+      <Footer name="Heimir Gestur Valdimarsson" />
     </div>
   );
 };

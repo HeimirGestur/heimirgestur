@@ -92,9 +92,9 @@ export const VideoCard = ({
       </article>
 
       <div className="mt-3 text-center">
-        <h3 className="font-sans text-sm font-normal text-foreground">{title}</h3>
+        <h3 className="font-sans text-xs font-normal text-foreground">{title}</h3>
         {subtitle && (
-          <p className="font-sans text-xs text-muted-foreground mt-1">{subtitle}</p>
+          <p className="font-sans text-[10px] text-muted-foreground mt-1">{subtitle}</p>
         )}
       </div>
     </Link>
