@@ -61,17 +61,11 @@ const Index = () => {
                 isActive={activeIndex === index}
                 onProgress={activeIndex === index ? setProgress : undefined}
               />
+              <div className="mt-4">
+                <ProgressBar progress={activeIndex === index ? progress : 0} />
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* Progress Bar */}
-        <div className="fixed bottom-20 left-0 right-0 px-4 z-40">
-          <ProgressBar
-            progress={progress}
-            segments={selectedVideos.length}
-            activeSegment={activeIndex}
-          />
         </div>
       </div>
     </Layout>
