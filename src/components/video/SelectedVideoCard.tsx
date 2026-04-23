@@ -12,6 +12,7 @@ interface SelectedVideoCardProps {
   isIframe?: boolean;
   isActive?: boolean;
   onProgress?: (progress: number) => void;
+  progressBar?: React.ReactNode;
 }
 
 const buildIframeAutoplayUrl = (url: string) => {
@@ -29,6 +30,7 @@ export const SelectedVideoCard = ({
   isIframe = false,
   isActive = false,
   onProgress,
+  progressBar,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -96,6 +98,7 @@ export const SelectedVideoCard = ({
         </div>
 
         <div className="mt-6 text-center max-w-3xl mx-auto px-4">
+          {progressBar && <div className="mb-4">{progressBar}</div>}
           <h3 className="font-sans text-sm font-medium text-foreground">{title}</h3>
           {(director || production) && (
             <p className="font-sans text-xs text-muted-foreground mt-2">
