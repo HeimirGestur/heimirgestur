@@ -50,9 +50,9 @@ const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 export const selectedVideos: Video[] = [
   { id: "6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "selected" },
   { id: "s-shack", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
-  { id: "s-plesn", title: "Pleśn Etiuda", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
+  { id: "s-plesn", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
   { id: "s-ryba", title: "RYBA", thumbnail: thumb(G.ryba), videoUrl: hls(G.ryba), category: "selected" },
-  { id: "s-flood", title: "Flood Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
+  { id: "s-flood", title: "FLOOD Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
   { id: "5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
   { id: "2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "selected" },
 ];
