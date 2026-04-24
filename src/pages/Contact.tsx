@@ -61,7 +61,7 @@ const Contact = () => {
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
                 <li>Ittala & Byredo (2026) | Series of Advertisements | Dir: Heimir Gestur Valdimarsson | Camera: Arriflex 435.</li>
                 <li>Canada Goose (2026) | Dir: Hampus Nordenson | Camera: Arriflex 435 | Lenses: Cooke s4i.</li>
-                <li>Charity (2022) | Series of Advertisements | Dir: Ágúst Bent | Camera: Black Magic Pocket 4K.</li>
+                <li>Foreldrajafnrétti (2022) | Series of Advertisements | Dir: Ágúst Bent | Camera: Black Magic Pocket 4K.</li>
               </ul>
 
               <h3 className="font-sans text-sm text-foreground mt-6 mb-2">Music Videos</h3>
