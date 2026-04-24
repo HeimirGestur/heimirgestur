@@ -4,6 +4,9 @@ import film3 from "@/assets/film-3.jpg";
 import film4 from "@/assets/film-4.jpg";
 import film5 from "@/assets/film-5.jpg";
 import film6 from "@/assets/film-6.jpg";
+import thumbKjot from "@/assets/thumb-kjot.jpg";
+import thumbGrace from "@/assets/thumb-grace.jpg";
+import thumbBobby from "@/assets/thumb-bobby.jpg";
 
 export interface Video {
   id: string;
