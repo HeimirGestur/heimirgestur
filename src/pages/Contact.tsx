@@ -5,20 +5,27 @@ const Contact = () => {
     <Layout>
       <div className="min-h-screen flex items-center justify-center px-4 py-20">
         <div className="text-center max-w-2xl">
-          <h1 className="font-sans text-xl text-foreground mb-8 text-left">
+          <h1 className="font-sans text-xl text-foreground mb-2 text-left">
             Heimir Gestur Valdimarsson
           </h1>
-          <div className="space-y-5 text-left mb-12">
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              I am an Icelandic cinematographer and photographer whose work is deeply rooted in the traditions of classical cinema. My visual language is shaped by a rigorous education in the craft, having completed both my Bachelor's and Master's degrees at the National Film School in Łódź.
-            </p>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              This foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.
-            </p>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              My portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is inextricably linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.
-            </p>
-          </div>
+          <p className="font-sans text-sm text-muted-foreground mb-8 text-left">
+            Cinematographer | Photographer | Musician
+          </p>
+
+          <section className="text-left mb-12">
+            <h2 className="font-sans text-base text-foreground mb-3">Professional Profile</h2>
+            <div className="space-y-5">
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                I am an Icelandic cinematographer and photographer, my work is deeply rooted in the traditions of classical cinema. My visual language is shaped by education in the craft as I completed both my Bachelor's and Master's degrees at the National Film School in Łódź.
+              </p>
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                This foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.
+              </p>
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                My portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.
+              </p>
+            </div>
+          </section>
 
           <div className="space-y-10 text-left mb-12">
             <section>
