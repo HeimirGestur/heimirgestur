@@ -41,6 +41,7 @@ const G = {
   shack: "3cf46997-d5e3-44bb-9eb0-aef9474d9f67",
   bride: "1132130d-c020-405f-9103-a25553cb56c4",
   ryba: "0ac96ca8-b669-4552-bb69-439a9b25d3da",
+  flowers: "bd552bfa-e46f-49ab-996b-2df4966c2fb7",
 };
 
 // Fallback thumbnails (kept for cases where Bunny thumbnail isn't generated yet)
@@ -64,7 +65,7 @@ export const filmVideos: Video[] = [
   { id: "f10", title: "Flood Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "films" },
   { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
   { id: "f8", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: hls(G.cccc), category: "films" },
-  { id: "f4", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "films" },
+  { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
   { id: "f1", title: "Kjöt", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "films" },
   { id: "f3", title: "Meal", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "films" },
   { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
