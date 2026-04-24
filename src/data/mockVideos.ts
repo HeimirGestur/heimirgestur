@@ -66,12 +66,12 @@ export const filmVideos: Video[] = [
   { id: "f9", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "films" },
   { id: "f-ryba", title: "RYBA", thumbnail: thumb(G.ryba), videoUrl: hls(G.ryba), category: "films" },
   { id: "f10", title: "FLOOD Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "films" },
-  { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
+  { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumbBobby, videoUrl: hls(G.bobby), category: "films" },
   { id: "f8", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: hls(G.cccc), category: "films" },
   { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
-  { id: "f1", title: "KJÖT", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "films" },
+  { id: "f1", title: "KJÖT", thumbnail: thumbKjot, videoUrl: hls(G.kjot), category: "films" },
   { id: "f3", title: "Breakfast of a Blind Man", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "films" },
-  { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
+  { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumbGrace, videoUrl: hls(G.grace), category: "films" },
 ];
 
 const yt = (id: string, title: string, n: number): Video => ({
