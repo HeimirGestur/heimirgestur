@@ -40,6 +40,7 @@ const G = {
   plesn: "dd3ebf2e-c4d1-45aa-b2f4-28555c3612f9",
   shack: "3cf46997-d5e3-44bb-9eb0-aef9474d9f67",
   bride: "1132130d-c020-405f-9103-a25553cb56c4",
+  ryba: "",
 };
 
 // Fallback thumbnails (kept for cases where Bunny thumbnail isn't generated yet)
@@ -49,6 +50,7 @@ export const selectedVideos: Video[] = [
   { id: "6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "selected" },
   { id: "s-shack", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
   { id: "s-plesn", title: "Pleśn Etiuda", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
+  { id: "s-ryba", title: "RYBA", thumbnail: film1, category: "selected" },
   { id: "s-flood", title: "Flood Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
   { id: "5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
   { id: "2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "selected" },
@@ -58,6 +60,7 @@ export const filmVideos: Video[] = [
   { id: "f6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "films" },
   { id: "f7", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "films" },
   { id: "f9", title: "Pleśn Etiuda", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "films" },
+  { id: "f-ryba", title: "RYBA", thumbnail: film1, category: "films" },
   { id: "f10", title: "Flood Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "films" },
   { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
   { id: "f8", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: hls(G.cccc), category: "films" },
