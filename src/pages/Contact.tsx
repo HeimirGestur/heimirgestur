@@ -5,20 +5,27 @@ const Contact = () => {
     <Layout>
       <div className="min-h-screen flex items-center justify-center px-4 py-20">
         <div className="text-center max-w-2xl">
-          <h1 className="font-sans text-xl text-foreground mb-8 text-left">
+          <h1 className="font-sans text-xl text-foreground mb-2 text-left">
             Heimir Gestur Valdimarsson
           </h1>
-          <div className="space-y-5 text-left mb-12">
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              I am an Icelandic cinematographer and photographer whose work is deeply rooted in the traditions of classical cinema. My visual language is shaped by a rigorous education in the craft, having completed both my Bachelor's and Master's degrees at the National Film School in Łódź.
-            </p>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              This foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.
-            </p>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              My portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is inextricably linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.
-            </p>
-          </div>
+          <p className="font-sans text-sm text-muted-foreground mb-8 text-left">
+            Cinematographer | Photographer | Musician
+          </p>
+
+          <section className="text-left mb-12">
+            <h2 className="font-sans text-base text-foreground mb-3">Professional Profile</h2>
+            <div className="space-y-5">
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                I am an Icelandic cinematographer and photographer, my work is deeply rooted in the traditions of classical cinema. My visual language is shaped by education in the craft as I completed both my Bachelor's and Master's degrees at the National Film School in Łódź.
+              </p>
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                This foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.
+              </p>
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                My portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.
+              </p>
+            </div>
+          </section>
 
           <div className="space-y-10 text-left mb-12">
             <section>
@@ -34,7 +41,6 @@ const Contact = () => {
               <h3 className="font-sans text-sm text-foreground mt-4 mb-2">Director / Director of Photography</h3>
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
                 <li>Passage (2026) | Camera: Arri Alexa LF | Lenses: Scorpio.</li>
-                <li>Shadow (2026).</li>
                 <li>PLEŚŃ (2024) | Camera: ARRI Alexa Mini | Lenses: Zeiss Super Speeds.</li>
                 <li>RYBA (2017) | Camera: MOVICAM SL 35mm | Lenses: Zeiss Super Speeds.</li>
                 <li>KJÖT (2013) | Camera: ARRI 435 35mm | Lenses: Zeiss T1 | Winner: Best Short at Örvarpið Festival.</li>
@@ -42,6 +48,7 @@ const Contact = () => {
 
               <h3 className="font-sans text-sm text-foreground mt-6 mb-2">Narrative & Short Films</h3>
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
+                <li>Shadow (2026) | Dir: Sigurður Möller Sivertsen | Camera: ARRI Alexa LF.</li>
                 <li>The Bride (2024) | Dir: Hjördis Jóhannsdóttir | Camera: Red Weapon Helium | Winner: Best Icelandic Short at RIFF.</li>
                 <li>Þvottur (2018) | Dir: Sigurður Möller Sivertsen | Camera: Sony FS5.</li>
                 <li>GRACE (2016) | Dir: Sigurður Möller Sivertsen | Camera: RED ONE Mysterium X.</li>
@@ -54,7 +61,7 @@ const Contact = () => {
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
                 <li>Ittala & Byredo (2026) | Series of Advertisements | Dir: Heimir Gestur Valdimarsson | Camera: Arriflex 435.</li>
                 <li>Canada Goose (2026) | Dir: Hampus Nordenson | Camera: Arriflex 435 | Lenses: Cooke s4i.</li>
-                <li>Charity (2022) | Series of Advertisements | Dir: Ágúst Bent | Camera: Black Magic Pocket 4K.</li>
+                <li>Foreldrajafnrétti (2022) | Series of Advertisements | Dir: Ágúst Bent | Camera: Black Magic Pocket 4K.</li>
               </ul>
 
               <h3 className="font-sans text-sm text-foreground mt-6 mb-2">Music Videos</h3>
