@@ -41,7 +41,6 @@ const Contact = () => {
               <h3 className="font-sans text-sm text-foreground mt-4 mb-2">Director / Director of Photography</h3>
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
                 <li>Passage (2026) | Camera: Arri Alexa LF | Lenses: Scorpio.</li>
-                <li>Shadow (2026).</li>
                 <li>PLEŚŃ (2024) | Camera: ARRI Alexa Mini | Lenses: Zeiss Super Speeds.</li>
                 <li>RYBA (2017) | Camera: MOVICAM SL 35mm | Lenses: Zeiss Super Speeds.</li>
                 <li>KJÖT (2013) | Camera: ARRI 435 35mm | Lenses: Zeiss T1 | Winner: Best Short at Örvarpið Festival.</li>
