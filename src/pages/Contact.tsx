@@ -48,6 +48,7 @@ const Contact = () => {
 
               <h3 className="font-sans text-sm text-foreground mt-6 mb-2">Narrative & Short Films</h3>
               <ul className="space-y-1.5 font-sans text-sm text-muted-foreground leading-relaxed">
+                <li>Shadow (2026) | Dir: Sigurður Möller Sivertsen | Camera: ARRI Alexa LF.</li>
                 <li>The Bride (2024) | Dir: Hjördis Jóhannsdóttir | Camera: Red Weapon Helium | Winner: Best Icelandic Short at RIFF.</li>
                 <li>Þvottur (2018) | Dir: Sigurður Möller Sivertsen | Camera: Sony FS5.</li>
                 <li>GRACE (2016) | Dir: Sigurður Möller Sivertsen | Camera: RED ONE Mysterium X.</li>
