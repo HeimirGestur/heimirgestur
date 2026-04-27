@@ -9,6 +9,8 @@ import MusicVideos from "./pages/MusicVideos";
 import Commercials from "./pages/Commercials";
 import VideoDetail from "./pages/VideoDetail";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ const App = () => (
           <Route path="/commercials" element={<Commercials />} />
           <Route path="/video/:id" element={<VideoDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

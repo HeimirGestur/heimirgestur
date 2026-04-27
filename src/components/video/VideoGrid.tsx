@@ -6,6 +6,7 @@ interface Video {
   subtitle?: string;
   thumbnail: string;
   videoUrl?: string;
+  hover_video_url?: string;
   isIframe?: boolean;
   isYoutube?: boolean;
 }
@@ -31,7 +32,7 @@ export const VideoGrid = ({ videos, columns = 4 }: VideoGridProps) => {
           title={video.title}
           subtitle={video.subtitle}
           thumbnail={video.thumbnail}
-          videoUrl={video.videoUrl}
+          videoUrl={video.hover_video_url || video.videoUrl}
           isIframe={video.isIframe}
           isYoutube={video.isYoutube}
           variant="small"
