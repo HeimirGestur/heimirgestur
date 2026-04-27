@@ -1,8 +1,10 @@
 import { Layout } from "@/components/layout/Layout";
 import { VideoGrid } from "@/components/video/VideoGrid";
-import { filmVideos } from "@/data/mockVideos";
+import { useVideosByCategory } from "@/hooks/usePortfolioContent";
 
 const Films = () => {
+  const { data: filmVideos = [] } = useVideosByCategory("films");
+
   return (
     <Layout>
       <div className="min-h-screen px-4 md:px-8 lg:px-16 py-24">

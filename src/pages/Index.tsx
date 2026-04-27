@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SelectedVideoCard } from "@/components/video/SelectedVideoCard";
 import { ProgressBar } from "@/components/video/ProgressBar";
-import { selectedVideos } from "@/data/mockVideos";
+import { useVideosByCategory } from "@/hooks/usePortfolioContent";
 
 const Index = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { data: selectedVideos = [] } = useVideosByCategory("selected");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,12 +38,11 @@ const Index = () => {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [selectedVideos.length]);
 
   return (
     <Layout>
       <div ref={containerRef} className="min-h-screen">
-        {/* Video Stack */}
         <div className="space-y-32 px-4 md:px-8 lg:px-16 py-16">
           {selectedVideos.map((video, index) => (
             <div
@@ -57,7 +57,8 @@ const Index = () => {
                 director={video.director}
                 production={video.production}
                 thumbnail={video.thumbnail}
-                videoUrl={video.videoUrl}
+                videoUrl={video.hover_video_url || video.videoUrl}
+                isIframe={video.isIframe}
                 isActive={activeIndex === index}
                 onProgress={activeIndex === index ? setProgress : undefined}
                 progressBar={

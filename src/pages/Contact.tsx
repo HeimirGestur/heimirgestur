@@ -1,43 +1,53 @@
 import { Layout } from "@/components/layout/Layout";
+import { useAboutMe, useContactPage } from "@/hooks/usePortfolioContent";
+
+const fallbackBio = `I am an Icelandic cinematographer and photographer, my work is deeply rooted in the traditions of classical cinema. My visual language is shaped by education in the craft as I completed both my Bachelor's and Master's degrees at the National Film School in Łódź.\n\nThis foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.\n\nMy portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.`;
 
 const Contact = () => {
+  const { data: about } = useAboutMe();
+  const { data: contact } = useContactPage();
+  const bioParagraphs = (about?.bio || fallbackBio).split("\n").filter(Boolean);
+
+  const contactRows = [
+    contact?.features_email ? { label: "Features", href: `mailto:${contact.features_email}`, value: contact.features_name ? `${contact.features_name} · ${contact.features_email}` : contact.features_email } : null,
+    contact?.commercials_contact_1_email ? { label: "Commercials", href: `mailto:${contact.commercials_contact_1_email}`, value: contact.commercials_contact_1_name ? `${contact.commercials_contact_1_name} · ${contact.commercials_contact_1_email}` : contact.commercials_contact_1_email } : null,
+    contact?.commercials_contact_2_email ? { label: "Commercials", href: `mailto:${contact.commercials_contact_2_email}`, value: contact.commercials_contact_2_name ? `${contact.commercials_contact_2_name} · ${contact.commercials_contact_2_email}` : contact.commercials_contact_2_email } : null,
+    contact?.commercials_contact_3_email ? { label: "Commercials", href: `mailto:${contact.commercials_contact_3_email}`, value: contact.commercials_contact_3_name ? `${contact.commercials_contact_3_name} · ${contact.commercials_contact_3_email}` : contact.commercials_contact_3_email } : null,
+    contact?.music_videos_email ? { label: "Music", href: `mailto:${contact.music_videos_email}`, value: contact.music_videos_name ? `${contact.music_videos_name} · ${contact.music_videos_email}` : contact.music_videos_email } : null,
+    contact?.personal_email ? { label: "Email", href: `mailto:${contact.personal_email}`, value: contact.personal_email } : { label: "Email", href: "mailto:heimirgestur@gmail.com", value: "heimirgestur@gmail.com" },
+    contact?.instagram_url ? { label: "Instagram", href: contact.instagram_url, value: contact.instagram_url.replace(/^https?:\/\/(www\.)?instagram\.com\//, "@").replace(/\/$/, "") } : { label: "Instagram", href: "https://www.instagram.com/heimirgestur/", value: "@heimirgestur" },
+    contact?.vimeo_url ? { label: "Vimeo", href: contact.vimeo_url, value: contact.vimeo_url.replace(/^https?:\/\//, "") } : { label: "Vimeo", href: "https://vimeo.com/user10633087", value: "vimeo.com/user10633087" },
+  ].filter(Boolean) as { label: string; href: string; value: string }[];
+
   return (
     <Layout>
       <div className="min-h-screen px-6 md:px-12 py-20 md:py-28">
         <div className="max-w-2xl mx-auto">
-          {/* Header */}
           <header className="mb-16">
             <h1 className="font-sans text-base font-medium text-foreground mb-1">
-              Heimir Gestur Valdimarsson
+              {contact?.representation_title || "Heimir Gestur Valdimarsson"}
             </h1>
             <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
               Cinematographer · Photographer · Musician
             </p>
           </header>
 
-          {/* Profile */}
           <Section label="Profile">
             <div className="space-y-4">
-              <p className="font-sans text-sm text-foreground/80 leading-[1.7]">
-                I am an Icelandic cinematographer and photographer, my work is deeply rooted in the traditions of classical cinema. My visual language is shaped by education in the craft as I completed both my Bachelor's and Master's degrees at the National Film School in Łódź.
-              </p>
-              <p className="font-sans text-sm text-foreground/80 leading-[1.7]">
-                This foundation has instilled in me a disciplined approach to the image, particularly through my extensive work with analog film. My aesthetic is defined by technical precision and atmospheric storytelling, applying the weight of classical cinematic traditions to a modern context.
-              </p>
-              <p className="font-sans text-sm text-foreground/80 leading-[1.7]">
-                My portfolio as a Director of Photography includes award-winning short films and music videos recognized by the Reykjavík International Film Festival and the Icelandic Music Awards. This visual work is linked to my background as a musician; having performed with various bands and composed scores for brands such as ACNE and Nordiska Galleriet, I bring a rhythmic, melodic sensibility to the projects I work on.
-              </p>
+              {bioParagraphs.map((paragraph) => (
+                <p key={paragraph} className="font-sans text-sm text-foreground/80 leading-[1.7]">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </Section>
 
-          {/* Education */}
           <Section label="Education">
             <p className="font-sans text-sm text-foreground/80 leading-[1.7]">
               The National Film School in Łódź — Master of Arts and Bachelor of Arts in Cinematography.
             </p>
           </Section>
 
-          {/* Filmography */}
           <Section label="Selected Filmography">
             <SubSection title="Director / Director of Photography">
               <FilmItem title="Passage" year="2026" details="Camera: Arri Alexa LF · Lenses: Scorpio" />
@@ -52,8 +62,6 @@ const Contact = () => {
               <FilmItem title="Þvottur" year="2018" details="Dir: Sigurður Möller Sivertsen · Camera: Sony FS5" />
               <FilmItem title="GRACE" year="2016" details="Dir: Sigurður Möller Sivertsen · Camera: RED ONE Mysterium X" />
               <FilmItem title="Bobby" year="2013" details="Dir: Sigurður Möller Sivertsen · Camera: ARRI SL2 16mm" />
-              <FilmItem title="Shots" year="2013" details="Dir: Katherine Harrison · Camera: ARRI SL2 16mm" />
-              <FilmItem title="Portrait: Petr Biel" year="2012" details="Documentary · Dir: Sigurður Möller Sivertsen · Camera: Canon 5D MIII & 7D" />
             </SubSection>
 
             <SubSection title="Commercials & Branded Content">
@@ -66,19 +74,13 @@ const Contact = () => {
               <FilmItem title={`Grísalappalísa — "Sjáðu hjónin"`} year="2019" details="Dir: Sigurður Möller Sivertsen · Camera: Arri Alexa LF" />
               <FilmItem title={`Grísalappalísa — "Kvæðaþjófurinn"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: Black Magic Pocket 4K" />
               <FilmItem title={`Andi — "Lónólongó"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: ARRI Alexa XT" />
-              <FilmItem title={`Grísalappalísa — "ABC"`} year="2014" details="Dir: Sigurður Möller Sivertsen · Camera: Canon MIII" />
-              <FilmItem title={`Grísalappalísa — "Live í Mjóddinni"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Camera: Digibeta SX" />
-              <FilmItem title={`Grísalappalísa — "Skrítin birta"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Camera: Canon 7D" />
-              <FilmItem title={`Grísalappalísa — "Hver er ég"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Winner: Best Music Video, Icelandic Music Awards" />
             </SubSection>
           </Section>
 
-          {/* Contact */}
           <Section label="Contact" last>
             <div className="space-y-3">
-              <ContactRow label="Email" href="mailto:heimirgestur@gmail.com" value="heimirgestur@gmail.com" />
-              <ContactRow label="Instagram" href="https://www.instagram.com/heimirgestur/" value="@heimirgestur" />
-              <ContactRow label="Vimeo" href="https://vimeo.com/user10633087" value="vimeo.com/user10633087" />
+              {contact?.representation_link && <ContactRow label="Rep" href={contact.representation_link} value={contact.representation_link.replace(/^https?:\/\//, "")} />}
+              {contactRows.map((row) => <ContactRow key={`${row.label}-${row.href}`} {...row} />)}
             </div>
           </Section>
         </div>
@@ -87,85 +89,34 @@ const Contact = () => {
   );
 };
 
-const Section = ({
-  label,
-  children,
-  last = false,
-}: {
-  label: string;
-  children: React.ReactNode;
-  last?: boolean;
-}) => (
-  <section
-    className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3 md:gap-8 py-10 ${
-      last ? "" : "border-b border-border"
-    }`}
-  >
-    <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5">
-      {label}
-    </h2>
+const Section = ({ label, children, last = false }: { label: string; children: React.ReactNode; last?: boolean }) => (
+  <section className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3 md:gap-8 py-10 ${last ? "" : "border-b border-border"}`}>
+    <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5">{label}</h2>
     <div>{children}</div>
   </section>
 );
 
-const SubSection = ({
-  title,
-  children,
-  last = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  last?: boolean;
-}) => (
+const SubSection = ({ title, children, last = false }: { title: string; children: React.ReactNode; last?: boolean }) => (
   <div className={last ? "" : "mb-10"}>
-    <h3 className="font-sans text-sm font-medium text-foreground mb-4">
-      {title}
-    </h3>
+    <h3 className="font-sans text-sm font-medium text-foreground mb-4">{title}</h3>
     <ul className="space-y-3">{children}</ul>
   </div>
 );
 
-const FilmItem = ({
-  title,
-  year,
-  details,
-}: {
-  title: string;
-  year: string;
-  details: string;
-}) => (
+const FilmItem = ({ title, year, details }: { title: string; year: string; details: string }) => (
   <li className="font-sans text-sm leading-[1.6]">
     <div className="flex items-baseline justify-between gap-4">
       <span className="text-foreground">{title}</span>
-      <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
-        {year}
-      </span>
+      <span className="font-mono text-[11px] text-muted-foreground tabular-nums">{year}</span>
     </div>
     <p className="text-muted-foreground text-[13px] mt-0.5">{details}</p>
   </li>
 );
 
-const ContactRow = ({
-  label,
-  value,
-  href,
-}: {
-  label: string;
-  value: string;
-  href: string;
-}) => (
-  <a
-    href={href}
-    target={href.startsWith("http") ? "_blank" : undefined}
-    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-    className="grid grid-cols-[80px_1fr] gap-4 group"
-  >
-    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-1">
-      {label}
-    </span>
-    <span className="font-sans text-sm text-foreground group-hover:text-muted-foreground transition-colors">
-      {value}
-    </span>
+const ContactRow = ({ label, value, href }: { label: string; value: string; href: string }) => (
+  <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="grid grid-cols-[80px_1fr] gap-4 group">
+    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-1">{label}</span>
+    <span className="font-sans text-sm text-foreground group-hover:text-muted-foreground transition-colors">{value}</span>
   </a>
 );
 

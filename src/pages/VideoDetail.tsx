@@ -1,13 +1,31 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import { selectedVideos, filmVideos, musicVideos, commercialVideos } from "@/data/mockVideos";
 import { HlsVideo } from "@/components/video/HlsVideo";
+import { supabase } from "@/integrations/supabase/client";
+import { mapCmsVideo, type CmsVideo } from "@/hooks/usePortfolioContent";
 
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>();
 
+  const { data: cmsVideo } = useQuery({
+    queryKey: ["video-detail", id],
+    enabled: Boolean(id),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("videos" as never)
+        .select("*" as never)
+        .eq("id", id)
+        .maybeSingle();
+
+      if (error) throw error;
+      return data ? mapCmsVideo(data as unknown as CmsVideo) : null;
+    },
+  });
+
   const allVideos = [...selectedVideos, ...filmVideos, ...musicVideos, ...commercialVideos];
-  const video = allVideos.find((v) => v.id === id);
+  const video = cmsVideo || allVideos.find((v) => v.id === id);
 
   if (!video) {
     return (
@@ -52,7 +70,7 @@ const VideoDetail = () => {
                 />
               ) : video.isIframe ? (
                 <iframe
-                  src={`${video.videoUrl}${video.videoUrl.includes("?") ? "&" : "?"}autoplay=true&responsive=true`}
+                  src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true`}
                   loading="lazy"
                   allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   allowFullScreen
