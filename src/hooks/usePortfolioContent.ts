@@ -39,7 +39,7 @@ const fallbackByCategory: Record<VideoCategory, MockVideo[]> = {
 export const vimeoThumbnail = (vimeoId: string) => `https://vumbnail.com/${vimeoId}.jpg`;
 
 export const mapCmsVideo = (video: CmsVideo): PortfolioVideo => {
-  const sourceUrl = video.source_type === "vimeo" ? video.vimeo_id || video.video_url || undefined : video.video_url || undefined;
+  const sourceUrl = video.source_type === "vimeo" ? (video.vimeo_id ? `https://player.vimeo.com/video/${video.vimeo_id}` : video.video_url || undefined) : video.video_url || undefined;
 
   return {
     id: video.id,
