@@ -27,6 +27,7 @@ export type PortfolioVideo = MockVideo & {
   sourceType?: VideoSourceType;
   sortOrder?: number;
   isVisible?: boolean;
+  hover_video_url?: string;
 };
 
 const fallbackByCategory: Record<VideoCategory, MockVideo[]> = {
@@ -56,6 +57,7 @@ export const mapCmsVideo = (video: CmsVideo): PortfolioVideo => {
     sourceType: video.source_type,
     sortOrder: video.sort_order,
     isVisible: video.is_visible,
+    hover_video_url: video.hover_video_url || undefined,
   };
 };
 
