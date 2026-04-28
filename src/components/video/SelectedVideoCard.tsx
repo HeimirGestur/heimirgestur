@@ -22,7 +22,6 @@ const buildIframeAutoplayUrl = (url: string) => {
 };
 
 export const SelectedVideoCard = ({
-  id,
   title,
   director,
   production,
