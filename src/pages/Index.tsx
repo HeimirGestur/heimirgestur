@@ -43,7 +43,7 @@ const Index = () => {
   return (
     <Layout>
       <div ref={containerRef} className="min-h-screen">
-        <div className="space-y-28 px-4 py-16 md:px-8">
+        <div className="space-y-40 px-4 py-16 md:px-8">
           {selectedVideos.map((video, index) => (
             <div
               key={video.id}
@@ -64,7 +64,7 @@ const Index = () => {
                 progressBar={
                   <ProgressBar progress={activeIndex === index ? progress : 0} />
                 }
-                showInfo={false}
+                showInfo
               />
             </div>
           ))}
