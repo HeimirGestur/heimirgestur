@@ -27,6 +27,7 @@ export type PortfolioVideo = MockVideo & {
   sourceType?: VideoSourceType;
   sortOrder?: number;
   isVisible?: boolean;
+  hover_video_url?: string;
 };
 
 const fallbackByCategory: Record<VideoCategory, MockVideo[]> = {
@@ -39,7 +40,7 @@ const fallbackByCategory: Record<VideoCategory, MockVideo[]> = {
 export const vimeoThumbnail = (vimeoId: string) => `https://vumbnail.com/${vimeoId}.jpg`;
 
 export const mapCmsVideo = (video: CmsVideo): PortfolioVideo => {
-  const sourceUrl = video.source_type === "vimeo" ? (video.vimeo_id ? `https://player.vimeo.com/video/${video.vimeo_id}` : video.video_url || undefined) : video.video_url || undefined;
+  const sourceUrl = video.source_type === "vimeo" ? video.video_url || (video.vimeo_id ? `https://player.vimeo.com/video/${video.vimeo_id}` : undefined) : video.video_url || undefined;
 
   return {
     id: video.id,
@@ -56,6 +57,7 @@ export const mapCmsVideo = (video: CmsVideo): PortfolioVideo => {
     sourceType: video.source_type,
     sortOrder: video.sort_order,
     isVisible: video.is_visible,
+    hover_video_url: video.hover_video_url || undefined,
   };
 };
 
