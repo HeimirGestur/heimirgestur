@@ -81,7 +81,8 @@ export const SelectedVideoCard = ({
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full border-0"
+                tabIndex={-1}
+                className="pointer-events-none absolute inset-0 w-full h-full border-0"
                 title={title}
               />
             ) : (
@@ -91,7 +92,7 @@ export const SelectedVideoCard = ({
                 autoPlay
                 muted
                 loop
-                className="absolute inset-0 w-full h-full object-cover"
+                className="pointer-events-none absolute inset-0 w-full h-full object-cover"
                 onTimeUpdate={onProgress}
                 title={title}
               />
