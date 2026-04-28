@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Maximize2 } from "lucide-react";
 import { HlsVideo } from "./HlsVideo";
 
 interface SelectedVideoCardProps {
@@ -22,7 +22,6 @@ const buildIframeAutoplayUrl = (url: string) => {
 };
 
 export const SelectedVideoCard = ({
-  id,
   title,
   director,
   production,
@@ -36,6 +35,11 @@ export const SelectedVideoCard = ({
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
+
+  const enterFullscreen = () => {
+    void playerRef.current?.requestFullscreen?.();
+  };
 
   useEffect(() => {
     setShowVideo(isActive);
@@ -55,14 +59,13 @@ export const SelectedVideoCard = ({
   }, [isActive, onProgress, isIframe]);
 
   return (
-    <Link
-      to={`/video/${id}`}
+    <article
       className="block w-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <article className="relative w-full">
-        <div className="relative w-full aspect-cinema overflow-hidden bg-muted">
+        <div ref={playerRef} className="group/player relative w-full aspect-cinema overflow-hidden bg-muted">
           <img
             src={thumbnail}
             alt={title}
@@ -98,6 +101,17 @@ export const SelectedVideoCard = ({
               />
             )
           )}
+
+          {videoUrl && (
+            <button
+              type="button"
+              onClick={enterFullscreen}
+              aria-label={`Enter fullscreen for ${title}`}
+              className="absolute bottom-4 right-4 z-10 grid h-10 w-10 place-items-center border border-border bg-background/70 text-foreground opacity-0 backdrop-blur-sm transition-opacity duration-300 hover:bg-accent hover:text-accent-foreground group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Maximize2 size={17} />
+            </button>
+          )}
         </div>
 
         {showInfo && (
@@ -114,6 +128,6 @@ export const SelectedVideoCard = ({
           </div>
         )}
       </article>
-    </Link>
+    </article>
   );
 };
