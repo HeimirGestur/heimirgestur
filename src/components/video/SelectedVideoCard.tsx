@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Maximize2 } from "lucide-react";
 import { HlsVideo } from "./HlsVideo";
 
 interface SelectedVideoCardProps {
@@ -107,9 +106,9 @@ export const SelectedVideoCard = ({
               type="button"
               onClick={enterFullscreen}
               aria-label={`Enter fullscreen for ${title}`}
-              className="absolute bottom-4 right-4 z-10 grid h-10 w-10 place-items-center border border-border bg-background/70 text-foreground opacity-0 backdrop-blur-sm transition-opacity duration-300 hover:bg-accent hover:text-accent-foreground group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="absolute inset-0 z-10 grid place-items-center bg-background/10 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground opacity-0 backdrop-blur-[1px] transition-opacity duration-300 hover:opacity-100 group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <Maximize2 size={17} />
+              Full screen
             </button>
           )}
         </div>
