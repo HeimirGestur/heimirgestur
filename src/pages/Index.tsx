@@ -43,12 +43,12 @@ const Index = () => {
   return (
     <Layout>
       <div ref={containerRef} className="min-h-screen">
-        <div className="space-y-32 px-4 md:px-8 lg:px-16 py-16">
+        <div className="space-y-32 px-4 md:px-8 lg:px-10 py-16">
           {selectedVideos.map((video, index) => (
             <div
               key={video.id}
               data-video-index={index}
-              className="animate-fade-in-up max-w-5xl mx-auto"
+              className="animate-fade-in-up mx-auto w-full max-w-[1400px]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <SelectedVideoCard
@@ -64,6 +64,7 @@ const Index = () => {
                 progressBar={
                   <ProgressBar progress={activeIndex === index ? progress : 0} />
                 }
+                showInfo={false}
               />
             </div>
           ))}
