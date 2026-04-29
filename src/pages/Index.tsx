@@ -12,6 +12,11 @@ const Index = () => {
   const { data: selectedVideos = [] } = useVideosByCategory("selected");
 
   useEffect(() => {
+    document.documentElement.classList.add("selected-scroll-snap");
+    return () => document.documentElement.classList.remove("selected-scroll-snap");
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
       
