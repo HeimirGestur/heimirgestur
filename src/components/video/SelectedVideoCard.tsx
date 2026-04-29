@@ -46,6 +46,11 @@ export const SelectedVideoCard = ({
     setShowVideo(isActive);
   }, [isActive]);
 
+  useEffect(() => {
+    if (isActive) return;
+    onProgress?.(0);
+  }, [isActive, onProgress]);
+
   // Simulated progress for iframe videos (no timeupdate available)
   useEffect(() => {
     if (!isActive || !onProgress || !isIframe) return;
@@ -73,9 +78,9 @@ export const SelectedVideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-              showVideo ? "opacity-0" : "opacity-100"
-            } ${isHovered ? "scale-105" : "scale-100"}`}
+            className={`absolute inset-0 z-[1] h-full w-full object-cover transition-transform duration-700 ${
+              isHovered ? "scale-105" : "scale-100"
+            }`}
           />
 
           {videoUrl && showVideo && (
@@ -86,7 +91,7 @@ export const SelectedVideoCard = ({
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
-                className="pointer-events-none absolute inset-0 w-full h-full border-0"
+                className="pointer-events-none absolute inset-0 z-[2] h-full w-full border-0"
                 title={title}
               />
             ) : (
@@ -96,7 +101,7 @@ export const SelectedVideoCard = ({
                 autoPlay
                 muted={muted}
                 loop
-                className="pointer-events-none absolute inset-0 w-full h-full object-cover"
+                className="pointer-events-none absolute inset-0 z-[2] h-full w-full object-cover"
                 onTimeUpdate={onProgress}
                 title={title}
               />
