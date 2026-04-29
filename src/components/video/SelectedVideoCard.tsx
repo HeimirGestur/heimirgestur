@@ -18,7 +18,7 @@ interface SelectedVideoCardProps {
 
 const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1`;
+  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
 };
 
 export const SelectedVideoCard = ({
@@ -50,6 +50,21 @@ export const SelectedVideoCard = ({
   useEffect(() => {
     setIframeReady(false);
   }, [videoUrl, showVideo, muted]);
+
+  useEffect(() => {
+    if (!isIframe || !showVideo) return;
+
+    const handleMessage = (event: MessageEvent) => {
+      if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
+      const data = typeof event.data === "string" ? JSON.parse(event.data || "{}") : event.data;
+      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
+        setIframeReady(true);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [isIframe, showVideo]);
 
   useEffect(() => {
     if (isActive) return;
@@ -98,7 +113,6 @@ export const SelectedVideoCard = ({
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
-                onLoad={() => setIframeReady(true)}
                 className="pointer-events-none absolute inset-0 z-[2] h-full w-full border-0"
                 title={title}
               />
