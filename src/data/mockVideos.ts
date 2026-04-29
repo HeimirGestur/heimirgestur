@@ -28,6 +28,13 @@ const thumb = (guid: string) => `${HLS_BASE}/${guid}/thumbnail.jpg`;
 const iframeEmbed = (guid: string) =>
   `https://iframe.mediadelivery.net/embed/${IFRAME_LIBRARY_ID}/${guid}`;
 
+const vimeoThumbs = {
+  kjot: "https://i.vimeocdn.com/video/2151251664-e1cfc3f17c79879ba0513b35d39f5577858bab5508e49e20ed1a88686c227c2f-d_640?region=us",
+  ryba: "https://i.vimeocdn.com/video/2151246952-00dfc5c1432bceeb0c75b79b07972c446ec67a08080f023ae12ddaa96122586a-d_640?region=us",
+  flood: "https://i.vimeocdn.com/video/2030641626-483b23a90de7273c48b41f9f08df79c0f8946e5d224e3fa132f11518edac848f-d_295x166?region=us",
+  cccc: "https://i.vimeocdn.com/video/2030704489-75a08d8600bdfcf8b047d63ab8c5ef249a46b8580916a4cd13dcb421717bc3fb-d_295x166?region=us",
+};
+
 // Bunny Stream GUIDs
 const G = {
   kjot: "3c367d6e-a39a-40e9-97fb-eabf94cfec6b",
@@ -61,12 +68,12 @@ export const filmVideos: Video[] = [
   { id: "f6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "films" },
   { id: "f7", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "films" },
   { id: "f9", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "films" },
-  { id: "f-ryba", title: "RYBA", thumbnail: "https://vumbnail.com/234761802.jpg", videoUrl: "https://player.vimeo.com/video/234761802", isIframe: true, category: "films" },
-  { id: "f10", title: "FLOOD Documentary", thumbnail: "https://vumbnail.com/1096545256.jpg", videoUrl: "https://player.vimeo.com/video/1096545256", isIframe: true, category: "films" },
+  { id: "f-ryba", title: "RYBA", thumbnail: vimeoThumbs.ryba, videoUrl: "https://player.vimeo.com/video/234761802", isIframe: true, category: "films" },
+  { id: "f10", title: "FLOOD Documentary", thumbnail: vimeoThumbs.flood, videoUrl: "https://player.vimeo.com/video/1096545256", isIframe: true, category: "films" },
   { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
-  { id: "f8", title: "CĆCĆ", thumbnail: "https://vumbnail.com/1096566683.jpg", videoUrl: "https://player.vimeo.com/video/1096566683", isIframe: true, category: "films" },
+  { id: "f8", title: "CĆCĆ", thumbnail: vimeoThumbs.cccc, videoUrl: "https://player.vimeo.com/video/1096566683", isIframe: true, category: "films" },
   { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
-  { id: "f1", title: "KJÖT", thumbnail: "https://vumbnail.com/67522255.jpg", videoUrl: "https://player.vimeo.com/video/67522255", isIframe: true, category: "films" },
+  { id: "f1", title: "KJÖT", thumbnail: vimeoThumbs.kjot, videoUrl: "https://player.vimeo.com/video/67522255", isIframe: true, category: "films" },
   { id: "f3", title: "Breakfast of a Blind Man", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "films" },
   { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
 ];
