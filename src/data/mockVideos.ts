@@ -66,7 +66,7 @@ export const filmVideos: Video[] = [
   { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
   { id: "f8", title: "CĆCĆ", thumbnail: thumb(G.cccc), videoUrl: hls(G.cccc), category: "films" },
   { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
-  { id: "f1", title: "KJÖT", thumbnail: thumb(G.kjot), videoUrl: hls(G.kjot), category: "films" },
+  { id: "f1", title: "KJÖT", thumbnail: "https://vumbnail.com/67522255.jpg", videoUrl: "https://player.vimeo.com/video/67522255", isIframe: true, category: "films" },
   { id: "f3", title: "Breakfast of a Blind Man", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "films" },
   { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
 ];
