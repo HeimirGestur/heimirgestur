@@ -18,7 +18,7 @@ interface SelectedVideoCardProps {
 
 const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=true&muted=${muted ? "true" : "false"}&loop=true&controls=0&title=0&byline=0&portrait=0&preload=true&responsive=true`;
+  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1`;
 };
 
 export const SelectedVideoCard = ({
@@ -36,6 +36,7 @@ export const SelectedVideoCard = ({
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [iframeReady, setIframeReady] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
 
   const enterFullscreen = () => {
@@ -45,6 +46,10 @@ export const SelectedVideoCard = ({
   useEffect(() => {
     setShowVideo(isActive);
   }, [isActive]);
+
+  useEffect(() => {
+    setIframeReady(false);
+  }, [videoUrl, showVideo, muted]);
 
   useEffect(() => {
     if (isActive) return;
@@ -78,7 +83,9 @@ export const SelectedVideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`absolute inset-0 z-[1] h-full w-full object-cover transition-transform duration-700 ${
+            className={`absolute inset-0 z-[3] h-full w-full object-cover transition-all duration-700 ${
+              showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
+            } ${
               isHovered ? "scale-105" : "scale-100"
             }`}
           />
@@ -91,6 +98,7 @@ export const SelectedVideoCard = ({
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
+                onLoad={() => setIframeReady(true)}
                 className="pointer-events-none absolute inset-0 z-[2] h-full w-full border-0"
                 title={title}
               />
