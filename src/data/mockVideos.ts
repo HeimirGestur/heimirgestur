@@ -33,6 +33,7 @@ const vimeoThumbs = {
   ryba: "https://i.vimeocdn.com/video/2151246952-00dfc5c1432bceeb0c75b79b07972c446ec67a08080f023ae12ddaa96122586a-d_640?region=us",
   flood: "https://i.vimeocdn.com/video/2030641626-483b23a90de7273c48b41f9f08df79c0f8946e5d224e3fa132f11518edac848f-d_295x166?region=us",
   cccc: "https://i.vimeocdn.com/video/2030704489-75a08d8600bdfcf8b047d63ab8c5ef249a46b8580916a4cd13dcb421717bc3fb-d_295x166?region=us",
+  ganadaGoose: "https://i.vimeocdn.com/video/2151708232-e854e0181177f893d17743a85a1691be33e981cd98e4b988b8434a3f9ef39424-d_295x166?region=us",
 };
 
 // Bunny Stream GUIDs
@@ -57,6 +58,7 @@ const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 export const selectedVideos: Video[] = [
   { id: "6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "selected" },
   { id: "s-shack", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
+  { id: "s-ganada-goose", title: "Ganada Goose", thumbnail: vimeoThumbs.ganadaGoose, videoUrl: "https://player.vimeo.com/video/1187650012", isIframe: true, category: "selected" },
   { id: "s-plesn", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
   { id: "s-flood", title: "FLOOD Documentary", thumbnail: thumb(G.flood), videoUrl: hls(G.flood), category: "selected" },
   { id: "5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "selected" },
