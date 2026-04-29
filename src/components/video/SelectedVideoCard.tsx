@@ -56,7 +56,14 @@ export const SelectedVideoCard = ({
 
     const handleMessage = (event: MessageEvent) => {
       if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
-      const data = typeof event.data === "string" ? JSON.parse(event.data || "{}") : event.data;
+      let data = event.data;
+      if (typeof event.data === "string") {
+        try {
+          data = JSON.parse(event.data || "{}");
+        } catch {
+          return;
+        }
+      }
       if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
         setIframeReady(true);
       }
