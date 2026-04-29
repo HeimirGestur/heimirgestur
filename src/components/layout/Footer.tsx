@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface FooterProps {
@@ -6,8 +5,6 @@ interface FooterProps {
 }
 
 export const Footer = ({ name = "Your Name" }: FooterProps) => {
-  const [isMuted, setIsMuted] = useState(true);
-
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
       <div className="flex justify-between items-center py-4 px-6">
@@ -22,12 +19,6 @@ export const Footer = ({ name = "Your Name" }: FooterProps) => {
             Contact
           </Link>
         </div>
-        <button
-          onClick={() => setIsMuted(!isMuted)}
-          className="nav-link font-sans text-xs hover:text-foreground transition-colors"
-        >
-          {isMuted ? "Unmute" : "Mute"}
-        </button>
       </div>
     </footer>
   );
