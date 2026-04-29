@@ -13,6 +13,7 @@ interface SelectedVideoCardProps {
   onProgress?: (progress: number) => void;
   progressBar?: React.ReactNode;
   showInfo?: boolean;
+  muted?: boolean;
 }
 
 const buildIframeAutoplayUrl = (url: string) => {
@@ -31,6 +32,7 @@ export const SelectedVideoCard = ({
   onProgress,
   progressBar,
   showInfo = true,
+  muted = true,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -79,7 +81,7 @@ export const SelectedVideoCard = ({
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
-                src={buildIframeAutoplayUrl(videoUrl)}
+                src={buildIframeAutoplayUrl(videoUrl, muted)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
@@ -92,7 +94,7 @@ export const SelectedVideoCard = ({
                 src={videoUrl}
                 poster={thumbnail}
                 autoPlay
-                muted
+                muted={muted}
                 loop
                 className="pointer-events-none absolute inset-0 w-full h-full object-cover"
                 onTimeUpdate={onProgress}
@@ -108,7 +110,7 @@ export const SelectedVideoCard = ({
               aria-label={`Enter fullscreen for ${title}`}
               className="absolute inset-0 z-10 grid place-items-center bg-background/10 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground opacity-0 backdrop-blur-[1px] transition-opacity duration-300 hover:opacity-100 group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Full screen
+              FULLSCREEN
             </button>
           )}
         </div>
