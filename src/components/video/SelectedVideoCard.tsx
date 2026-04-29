@@ -16,9 +16,9 @@ interface SelectedVideoCardProps {
   muted?: boolean;
 }
 
-const buildIframeAutoplayUrl = (url: string) => {
+const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=true&muted=true&loop=true&controls=0&title=0&byline=0&portrait=0&preload=true&responsive=true`;
+  return `${url}${sep}autoplay=true&muted=${muted ? "true" : "false"}&loop=true&controls=0&title=0&byline=0&portrait=0&preload=true&responsive=true`;
 };
 
 export const SelectedVideoCard = ({
