@@ -13,11 +13,12 @@ interface SelectedVideoCardProps {
   onProgress?: (progress: number) => void;
   progressBar?: React.ReactNode;
   showInfo?: boolean;
+  muted?: boolean;
 }
 
-const buildIframeAutoplayUrl = (url: string) => {
+const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=true&muted=true&loop=true&controls=0&title=0&byline=0&portrait=0&preload=true&responsive=true`;
+  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
 };
 
 export const SelectedVideoCard = ({
@@ -31,9 +32,11 @@ export const SelectedVideoCard = ({
   onProgress,
   progressBar,
   showInfo = true,
+  muted = true,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [iframeReady, setIframeReady] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
 
   const enterFullscreen = () => {
@@ -43,6 +46,37 @@ export const SelectedVideoCard = ({
   useEffect(() => {
     setShowVideo(isActive);
   }, [isActive]);
+
+  useEffect(() => {
+    setIframeReady(false);
+  }, [videoUrl, showVideo, muted]);
+
+  useEffect(() => {
+    if (!isIframe || !showVideo) return;
+
+    const handleMessage = (event: MessageEvent) => {
+      if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
+      let data = event.data;
+      if (typeof event.data === "string") {
+        try {
+          data = JSON.parse(event.data || "{}");
+        } catch {
+          return;
+        }
+      }
+      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
+        setIframeReady(true);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [isIframe, showVideo]);
+
+  useEffect(() => {
+    if (isActive) return;
+    onProgress?.(0);
+  }, [isActive, onProgress]);
 
   // Simulated progress for iframe videos (no timeupdate available)
   useEffect(() => {
@@ -71,20 +105,22 @@ export const SelectedVideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
-              showVideo ? "opacity-0" : "opacity-100"
-            } ${isHovered ? "scale-105" : "scale-100"}`}
+            className={`absolute inset-0 z-[3] h-full w-full object-cover transition-all duration-700 ${
+              showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
+            } ${
+              isHovered ? "scale-105" : "scale-100"
+            }`}
           />
 
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
-                src={buildIframeAutoplayUrl(videoUrl)}
+                src={buildIframeAutoplayUrl(videoUrl, muted)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
-                className="pointer-events-none absolute inset-0 w-full h-full border-0"
+                className="pointer-events-none absolute inset-0 z-[2] h-full w-full border-0"
                 title={title}
               />
             ) : (
@@ -92,9 +128,9 @@ export const SelectedVideoCard = ({
                 src={videoUrl}
                 poster={thumbnail}
                 autoPlay
-                muted
+                muted={muted}
                 loop
-                className="pointer-events-none absolute inset-0 w-full h-full object-cover"
+                className="pointer-events-none absolute inset-0 z-[2] h-full w-full object-cover"
                 onTimeUpdate={onProgress}
                 title={title}
               />
@@ -108,7 +144,7 @@ export const SelectedVideoCard = ({
               aria-label={`Enter fullscreen for ${title}`}
               className="absolute inset-0 z-10 grid place-items-center bg-background/10 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground opacity-0 backdrop-blur-[1px] transition-opacity duration-300 hover:opacity-100 group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Full screen
+              FULLSCREEN
             </button>
           )}
         </div>

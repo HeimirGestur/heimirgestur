@@ -11,7 +11,7 @@ export const ProgressBar = ({
 }: ProgressBarProps) => {
   if (segments === 1) {
     return (
-      <div className="w-1/4 max-w-2xl mx-auto h-[2px] bg-muted rounded-full overflow-hidden">
+      <div className="w-full max-w-3xl mx-auto h-[2px] bg-muted overflow-hidden">
         <div
           className="h-full bg-foreground transition-all duration-100 ease-linear"
           style={{ width: `${progress}%` }}

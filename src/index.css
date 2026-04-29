@@ -110,6 +110,10 @@
     scroll-behavior: smooth;
   }
 
+  html.selected-scroll-snap {
+    scroll-snap-type: y mandatory;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
