@@ -59,7 +59,7 @@ const Index = () => {
             <div
               key={video.id}
               data-video-index={index}
-              className="animate-fade-in-up mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-[min(85vw,1200px)] snap-start flex-col justify-center py-16"
+              className="animate-fade-in-up mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-[min(65vw,900px)] snap-start flex-col justify-center py-16"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <SelectedVideoCard
