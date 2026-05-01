@@ -110,7 +110,7 @@ export const SelectedVideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`absolute inset-0 z-[3] h-full w-full object-cover transition-all duration-700 ${
+            className={`absolute inset-0 z-[3] h-full w-full object-contain transition-all duration-700 ${
               showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
             } ${
               isHovered ? "scale-105" : "scale-100"
