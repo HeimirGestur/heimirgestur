@@ -52,7 +52,7 @@ export const VideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`video-card-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            className={`video-card-image absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
               isHovered && videoUrl ? "opacity-0" : "opacity-100"
             }`}
           />
