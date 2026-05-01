@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { name: "Selected", path: "/" },
   { name: "Films", path: "/films" },
-  { name: "Commercials", path: "/commercials" },
+  { name: "Music Videos", path: "/music-videos" },
 ];
 
 export const Header = () => {
