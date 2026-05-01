@@ -53,6 +53,8 @@ export const SelectedVideoCard = ({
 
   useEffect(() => {
     if (!isIframe || !showVideo) return;
+    // Fallback: reveal iframe after a short delay in case postMessage events don't arrive.
+    const timer = setTimeout(() => setIframeReady(true), 600);
 
     const handleMessage = (event: MessageEvent) => {
       if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
@@ -64,13 +66,16 @@ export const SelectedVideoCard = ({
           return;
         }
       }
-      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
+      if (["play", "playing", "timeupdate", "progress", "ready"].includes(data?.event)) {
         setIframeReady(true);
       }
     };
 
     window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("message", handleMessage);
+    };
   }, [isIframe, showVideo]);
 
   useEffect(() => {
