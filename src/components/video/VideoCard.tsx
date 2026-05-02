@@ -43,7 +43,7 @@ export const VideoCard = ({
       <article className="video-card">
         <div
           className={`relative overflow-hidden bg-muted ${
-            variant === "large" ? "aspect-cinema" : "aspect-video"
+            variant === "large" ? "aspect-cinema" : ""
           }`}
         >
           <img
@@ -52,9 +52,9 @@ export const VideoCard = ({
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
-            className={`video-card-image absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+            className={`video-card-image block w-full h-auto transition-opacity duration-500 ${
               isHovered && videoUrl ? "opacity-0" : "opacity-100"
-            }`}
+            } ${variant === "large" ? "absolute inset-0 h-full object-contain" : ""}`}
           />
 
           {videoUrl && isHovered && (
