@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { useAboutMe, useContactPage } from "@/hooks/usePortfolioContent";
 
