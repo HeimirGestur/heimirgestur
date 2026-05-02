@@ -15,7 +15,7 @@ interface VideoCardProps {
 
 const buildIframeHoverUrl = (url: string) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=true&muted=true&loop=true&preload=true&responsive=true`;
+  return `${url}${sep}autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1`;
 };
 
 const buildYoutubeHoverUrl = (videoId: string) =>
