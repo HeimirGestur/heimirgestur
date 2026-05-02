@@ -42,7 +42,7 @@ export const VideoCard = ({
     >
       <article className="video-card">
         <div
-          className={`relative overflow-hidden bg-muted ${
+          className={`relative overflow-hidden bg-black ${
             variant === "large" ? "aspect-cinema" : "aspect-video"
           }`}
         >
