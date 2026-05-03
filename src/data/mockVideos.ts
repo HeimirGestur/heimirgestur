@@ -79,9 +79,10 @@ export const filmVideos: Video[] = [
   { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
 ];
 
-const yt = (id: string, title: string, n: number): Video => ({
+const yt = (id: string, title: string, n: number, subtitle?: string): Video => ({
   id: `mv${n}`,
   title,
+  subtitle,
   thumbnail: ytThumb(id),
   videoUrl: id,
   isYoutube: true,
@@ -90,16 +91,17 @@ const yt = (id: string, title: string, n: number): Video => ({
 
 export const musicVideos: Video[] = [
   yt("xKrtmXq1Uwg", "Grísalappalísa – Þrjúhundruðsextíuogfimmdagablús", 1),
-  yt("t5OlALTiQco", "Grísalappalísa – ABC", 2),
-  yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (Live á Húrra)", 3),
-  yt("sAH7HtQ8HOw", "Grísalappalísa – Kvæðaþjófurinn", 4),
+  yt("sAH7HtQ8HOw", "Grísalappalísa – Kvæðaþjófurinn (2017)", 4, "Dir. Sigurður Möller Sivertsen · Camera. Black Magic Pocket 4K"),
+  yt("cF5_sGFZ34A", "Andi – Lónólongó (2017)", 7, "Dir. Sigurður Möller Sivertsen · Camera. ARRI Alexa XT"),
+  yt("t5OlALTiQco", "Grísalappalísa – ABC (2014)", 2, "Dir. Sigurður Möller Sivertsen · Camera. Canon MIII"),
+  yt("YQAPMv5mE7I", "Grísalappalísa – Live í Mjóddinni (2013)", 10, "Dir. Sigurður Möller Sivertsen · Camera. Digibeta SX"),
+  yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (2013)", 3, "Dir. Sigurður Möller Sivertsen · Camera. Canon 7D"),
+  yt("6nqVPyY0KAk", "Grísalappalísa – Hver er ég? (2013)", 6, "Dir. Sigurður Möller Sivertsen · Winner, Best Music Video — Icelandic Music Awards"),
   yt("54lvlI2IRYw", "Veirumenn", 5),
-  yt("6nqVPyY0KAk", "Grísalappalísa – Hver er ég?", 6),
-  yt("cF5_sGFZ34A", "Andi – Lónólongó", 7),
   yt("PYmAR4Z96dM", "Oyama – Siblings", 8),
   yt("TwyNzFbJwbU", "Grísalappalísa – Skrítin birta", 9),
-  yt("YQAPMv5mE7I", "Grísalappalísa – Mjóddin", 10),
 ];
+
 
 export const commercialVideos: Video[] = [
   { id: "c1", title: "Haiku", thumbnail: thumb(G.haiku), videoUrl: hls(G.haiku), category: "commercials" },
