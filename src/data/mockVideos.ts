@@ -89,6 +89,7 @@ const yt = (id: string, title: string, n: number): Video => ({
 });
 
 export const musicVideos: Video[] = [
+  yt("-O8IhUxFz6s", "Baldur – DAMN IT.", 11),
   yt("xKrtmXq1Uwg", "Grísalappalísa – Þrjúhundruðsextíuogfimmdagablús", 1),
   yt("t5OlALTiQco", "Grísalappalísa – ABC", 2),
   yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (Live á Húrra)", 3),
