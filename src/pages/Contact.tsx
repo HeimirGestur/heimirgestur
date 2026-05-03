@@ -79,6 +79,10 @@ const Contact = () => {
               <FilmItem title={`Grísalappalísa — "Sjáðu hjónin"`} year="2019" details="Dir: Sigurður Möller Sivertsen · Camera: Arri Alexa LF" />
               <FilmItem title={`Grísalappalísa — "Kvæðaþjófurinn"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: Black Magic Pocket 4K" />
               <FilmItem title={`Andi — "Lónólongó"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: ARRI Alexa XT" />
+              <FilmItem title={`Grísalappalísa — "ABC"`} year="2014" details="Dir: Sigurður Möller Sivertsen · Camera: Canon MIII" />
+              <FilmItem title={`Grísalappalísa — "Live í Mjóddinni"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Camera: Digibeta SX" />
+              <FilmItem title={`Grísalappalísa — "Skrítin birta"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Camera: Canon 7D" />
+              <FilmItem title={`Grísalappalísa — "Hver er ég"`} year="2013" details="Dir: Sigurður Möller Sivertsen · Winner: Best Music Video, Icelandic Music Awards" />
             </SubSection>
           </Section>
 
