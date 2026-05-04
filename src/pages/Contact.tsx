@@ -19,9 +19,9 @@ const Contact = () => {
     contact?.commercials_contact_2_email ? { label: "Commercials", href: `mailto:${contact.commercials_contact_2_email}`, value: contact.commercials_contact_2_name ? `${contact.commercials_contact_2_name} · ${contact.commercials_contact_2_email}` : contact.commercials_contact_2_email } : null,
     contact?.commercials_contact_3_email ? { label: "Commercials", href: `mailto:${contact.commercials_contact_3_email}`, value: contact.commercials_contact_3_name ? `${contact.commercials_contact_3_name} · ${contact.commercials_contact_3_email}` : contact.commercials_contact_3_email } : null,
     contact?.music_videos_email ? { label: "Music", href: `mailto:${contact.music_videos_email}`, value: contact.music_videos_name ? `${contact.music_videos_name} · ${contact.music_videos_email}` : contact.music_videos_email } : null,
-    contact?.personal_email ? { label: "Email", href: `mailto:${contact.personal_email}`, value: contact.personal_email } : { label: "Email", href: "mailto:heimirgestur@gmail.com", value: "heimirgestur@gmail.com" },
-    contact?.instagram_url ? { label: "Instagram", href: contact.instagram_url, value: contact.instagram_url.replace(/^https?:\/\/(www\.)?instagram\.com\//, "@").replace(/\/$/, "") } : { label: "Instagram", href: "https://www.instagram.com/heimirgestur/", value: "@heimirgestur" },
-    contact?.vimeo_url ? { label: "Vimeo", href: contact.vimeo_url, value: contact.vimeo_url.replace(/^https?:\/\//, "") } : { label: "Vimeo", href: "https://vimeo.com/user10633087", value: "vimeo.com/user10633087" },
+    contact?.personal_email ? { label: "\n", href: `mailto:${contact.personal_email}`, value: contact.personal_email } : { label: "\n", href: "mailto:heimirgestur@gmail.com", value: "heimirgestur@gmail.com" },
+    contact?.instagram_url ? { label: "\n\n\n", href: contact.instagram_url, value: contact.instagram_url.replace(/^https?:\/\/(www\.)?instagram\.com\//, "@").replace(/\/$/, "") } : { label: "\n\n\n", href: "https://www.instagram.com/heimirgestur/", value: "@heimirgestur" },
+    contact?.vimeo_url ? { label: "\n\n\n", href: contact.vimeo_url, value: contact.vimeo_url.replace(/^https?:\/\//, "") } : { label: "\n\n\n", href: "https://vimeo.com/user10633087", value: "vimeo.com/user10633087" },
   ].filter(Boolean) as { label: string; href: string; value: string }[];
 
   return (
