@@ -101,7 +101,7 @@ const Contact = () => {
 
 const Section = ({ label, children, last = false }: { label: string; children: React.ReactNode; last?: boolean }) => (
   <section className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3 md:gap-8 py-10 ${last ? "" : "border-b border-border"}`}>
-    <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5">{label}</h2>
+    <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5 whitespace-pre-wrap">{label}</h2>
     <div>{children}</div>
   </section>
 );
