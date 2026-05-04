@@ -27,20 +27,20 @@ const Contact = () => {
   return (
     <Layout>
       <div className="min-h-screen px-6 md:px-12 py-20 md:py-28">
-        <div className="max-w-2xl mx-auto">
-          <header className="mb-16">
-            <h1 className="font-sans text-base font-medium text-foreground mb-1">
+        <div className="max-w-xl mx-auto">
+          <header className="mb-12">
+            <h1 className="font-sans text-xs font-normal text-foreground mb-1">
               {contact?.representation_title || "Heimir Gestur Valdimarsson"}
             </h1>
-            <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
               Cinematographer · Photographer · Musician
             </p>
           </header>
 
           <Section label="Profile">
-            <div className="space-y-4">
+            <div className="space-y-3">
               {bioParagraphs.map((paragraph) => (
-                <p key={paragraph} className="font-sans text-sm text-foreground/80 leading-[1.7]">
+                <p key={paragraph} className="font-sans text-xs text-foreground/80 leading-[1.7]">
                   {paragraph}
                 </p>
               ))}
@@ -48,7 +48,7 @@ const Contact = () => {
           </Section>
 
           <Section label="Education">
-            <p className="font-sans text-sm text-foreground/80 leading-[1.7]">
+            <p className="font-sans text-xs text-foreground/80 leading-[1.7]">
               The National Film School in Łódź — Master of Arts and Bachelor of Arts in Cinematography.
             </p>
           </Section>
@@ -88,7 +88,7 @@ const Contact = () => {
           </Section>
 
           <Section label="\n\n\n\n" last>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {contact?.representation_link && <ContactRow label="Rep" href={contact.representation_link} value={contact.representation_link.replace(/^https?:\/\//, "")} />}
               {contactRows.map((row) => <ContactRow key={`${row.label}-${row.href}`} {...row} />)}
             </div>
@@ -100,33 +100,33 @@ const Contact = () => {
 };
 
 const Section = ({ label, children, last = false }: { label: string; children: React.ReactNode; last?: boolean }) => (
-  <section className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-3 md:gap-8 py-10 ${last ? "" : "border-b border-border"}`}>
-    <h2 className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5 whitespace-pre-wrap">{label}</h2>
+  <section className={`grid grid-cols-1 md:grid-cols-[120px_1fr] gap-2 md:gap-8 py-8 ${last ? "" : "border-b border-border/50"}`}>
+    <h2 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground pt-0.5 whitespace-pre-wrap">{label}</h2>
     <div>{children}</div>
   </section>
 );
 
 const SubSection = ({ title, children, last = false }: { title: string; children: React.ReactNode; last?: boolean }) => (
-  <div className={last ? "" : "mb-10"}>
-    <h3 className="font-sans text-sm font-medium text-foreground mb-4">{title}</h3>
-    <ul className="space-y-3">{children}</ul>
+  <div className={last ? "" : "mb-8"}>
+    <h3 className="font-sans text-xs font-medium text-foreground mb-3">{title}</h3>
+    <ul className="space-y-2.5">{children}</ul>
   </div>
 );
 
 const FilmItem = ({ title, year, details }: { title: string; year: string; details: string }) => (
-  <li className="font-sans text-sm leading-[1.6]">
+  <li className="font-sans text-xs leading-[1.6]">
     <div className="flex items-baseline justify-between gap-4">
       <span className="text-foreground">{title}</span>
-      <span className="font-mono text-[11px] text-muted-foreground tabular-nums">{year}</span>
+      <span className="font-mono text-[10px] text-muted-foreground tabular-nums">{year}</span>
     </div>
-    <p className="text-muted-foreground text-[13px] mt-0.5">{details}</p>
+    <p className="text-muted-foreground text-[11px] mt-0.5">{details}</p>
   </li>
 );
 
 const ContactRow = ({ label, value, href }: { label: string; value: string; href: string }) => (
   <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="grid grid-cols-[80px_1fr] gap-4 group">
-    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-1 whitespace-pre-wrap">{label}</span>
-    <span className="font-sans text-sm text-foreground group-hover:text-muted-foreground transition-colors">{value}</span>
+    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground pt-1 whitespace-pre-wrap">{label}</span>
+    <span className="font-sans text-xs text-foreground group-hover:text-muted-foreground transition-colors">{value}</span>
   </a>
 );
 
