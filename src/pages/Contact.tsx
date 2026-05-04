@@ -76,6 +76,7 @@ const Contact = () => {
             </SubSection>
 
             <SubSection title="Music Videos" last>
+              <FilmItem title={`Baldur — "DAMN IT"`} year="2023" details="Dir: Árni Jónsson · Camera: Sony AIIIS" />
               <FilmItem title={`Grísalappalísa — "Sjáðu hjónin"`} year="2019" details="Dir: Sigurður Möller Sivertsen · Camera: Arri Alexa LF" />
               <FilmItem title={`Grísalappalísa — "Kvæðaþjófurinn"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: Black Magic Pocket 4K" />
               <FilmItem title={`Andi — "Lónólongó"`} year="2017" details="Dir: Sigurður Möller Sivertsen · Camera: ARRI Alexa XT" />
