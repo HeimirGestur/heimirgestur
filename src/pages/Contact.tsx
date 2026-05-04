@@ -87,7 +87,7 @@ const Contact = () => {
             </SubSection>
           </Section>
 
-          <Section label="Contact" last>
+          <Section label="\n\n\n\n" last>
             <div className="space-y-3">
               {contact?.representation_link && <ContactRow label="Rep" href={contact.representation_link} value={contact.representation_link.replace(/^https?:\/\//, "")} />}
               {contactRows.map((row) => <ContactRow key={`${row.label}-${row.href}`} {...row} />)}
