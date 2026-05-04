@@ -125,7 +125,7 @@ const FilmItem = ({ title, year, details }: { title: string; year: string; detai
 
 const ContactRow = ({ label, value, href }: { label: string; value: string; href: string }) => (
   <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="grid grid-cols-[80px_1fr] gap-4 group">
-    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-1">{label}</span>
+    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground pt-1 whitespace-pre-wrap">{label}</span>
     <span className="font-sans text-sm text-foreground group-hover:text-muted-foreground transition-colors">{value}</span>
   </a>
 );
