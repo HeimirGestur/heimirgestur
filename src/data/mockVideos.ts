@@ -56,7 +56,7 @@ const G = {
 const fallbackThumbs = [film1, film2, film3, film4, film5, film6];
 
 export const selectedVideos: Video[] = [
-  { id: "6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "selected" },
+  { id: "6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: "https://res.cloudinary.com/dltrwdadi/video/upload/v1777896270/The%20Bride.mp4", category: "selected" },
   { id: "s-shack", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "selected" },
   { id: "s-ganada-goose", title: "Ganada Goose", thumbnail: vimeoThumbs.ganadaGoose, videoUrl: "https://player.vimeo.com/video/1187650012", isIframe: true, category: "selected" },
   { id: "s-plesn", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "selected" },
@@ -66,7 +66,7 @@ export const selectedVideos: Video[] = [
 ];
 
 export const filmVideos: Video[] = [
-  { id: "f6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: hls(G.bride), category: "films" },
+  { id: "f6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: "https://res.cloudinary.com/dltrwdadi/video/upload/v1777896270/The%20Bride.mp4", category: "films" },
   { id: "f7", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), category: "films" },
   { id: "f9", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), category: "films" },
   { id: "f-ryba", title: "RYBA", thumbnail: vimeoThumbs.ryba, videoUrl: "https://player.vimeo.com/video/234761802", isIframe: true, category: "films" },
