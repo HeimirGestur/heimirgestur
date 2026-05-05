@@ -32,7 +32,11 @@ export const HlsVideo = ({
 
     let hls: Hls | null = null;
 
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    const isHls = /\.m3u8(\?|$)/i.test(src);
+
+    if (!isHls) {
+      video.src = src;
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // Safari / iOS native HLS
       video.src = src;
     } else if (Hls.isSupported()) {
