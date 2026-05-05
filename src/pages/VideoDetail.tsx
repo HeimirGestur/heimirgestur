@@ -58,26 +58,48 @@ const VideoDetail = () => {
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-6xl">
           <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
-            {video.videoUrl ? (
-              video.isYoutube ? (
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-                  loading="lazy"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                  title={video.title}
-                />
-              ) : video.isIframe ? (
-                <iframe
-                  src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true`}
-                  loading="lazy"
-                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                  title={video.title}
-                />
-              ) : (
+            {(() => {
+              const vimeoId = (video as { vimeo_id?: string }).vimeo_id;
+              if (vimeoId) {
+                return (
+                  <iframe
+                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true`}
+                    loading="lazy"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                    title={video.title}
+                  />
+                );
+              }
+              if (!video.videoUrl) {
+                return <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />;
+              }
+              if (video.isYoutube) {
+                return (
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                    title={video.title}
+                  />
+                );
+              }
+              if (video.isIframe) {
+                return (
+                  <iframe
+                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true`}
+                    loading="lazy"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                    title={video.title}
+                  />
+                );
+              }
+              return (
                 <HlsVideo
                   src={video.videoUrl}
                   poster={video.thumbnail}
@@ -87,14 +109,8 @@ const VideoDetail = () => {
                   className="w-full h-full object-contain bg-black"
                   title={video.title}
                 />
-              )
-            ) : (
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className="w-full h-full object-cover"
-              />
-            )}
+              );
+            })()}
           </div>
 
           <div className="text-center">
