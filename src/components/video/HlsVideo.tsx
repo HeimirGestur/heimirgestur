@@ -77,11 +77,12 @@ export const HlsVideo = ({
     <video
       ref={videoRef}
       poster={poster}
+      autoPlay={autoPlay}
       muted={muted}
       loop={loop}
       controls={controls}
       playsInline
-      preload="metadata"
+      preload="auto"
       className={className}
       onTimeUpdate={handleTimeUpdate}
       title={title}
