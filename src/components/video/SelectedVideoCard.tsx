@@ -17,9 +17,10 @@ interface SelectedVideoCardProps {
   onToggleMuted?: () => void;
 }
 
-const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
+const buildIframeAutoplayUrl = (url: string) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
+  // Always start muted so browsers allow autoplay; mute toggled later via postMessage.
+  return `${url}${sep}autoplay=1&muted=1&loop=1&background=0&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
 };
 
 export const SelectedVideoCard = ({
