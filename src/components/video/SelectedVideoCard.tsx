@@ -137,7 +137,7 @@ export const SelectedVideoCard = ({
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
-                src={buildIframeAutoplayUrl(videoUrl, muted)}
+                src={buildIframeAutoplayUrl(videoUrl)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
