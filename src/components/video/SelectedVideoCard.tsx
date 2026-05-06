@@ -145,10 +145,8 @@ export const SelectedVideoCard = ({
               type="button"
               onClick={enterFullscreen}
               aria-label={`Enter fullscreen for ${title}`}
-              className="absolute inset-0 z-10 grid place-items-center font-mono text-[10px] uppercase tracking-[0.18em] text-foreground opacity-0 transition-opacity duration-300 hover:opacity-100 group-hover/player:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              FULLSCREEN
-            </button>
+              className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
           )}
         </div>
 
