@@ -34,11 +34,21 @@ export const SelectedVideoCard = ({
   progressBar,
   showInfo = true,
   muted = true,
+  onToggleMuted,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(document.fullscreenElement === playerRef.current);
+    };
+    document.addEventListener("fullscreenchange", handleFsChange);
+    return () => document.removeEventListener("fullscreenchange", handleFsChange);
+  }, []);
 
   const enterFullscreen = () => {
     void playerRef.current?.requestFullscreen?.();
