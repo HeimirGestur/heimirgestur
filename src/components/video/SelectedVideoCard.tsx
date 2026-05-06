@@ -14,6 +14,7 @@ interface SelectedVideoCardProps {
   progressBar?: React.ReactNode;
   showInfo?: boolean;
   muted?: boolean;
+  onToggleMuted?: () => void;
 }
 
 const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
@@ -33,11 +34,21 @@ export const SelectedVideoCard = ({
   progressBar,
   showInfo = true,
   muted = true,
+  onToggleMuted,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(document.fullscreenElement === playerRef.current);
+    };
+    document.addEventListener("fullscreenchange", handleFsChange);
+    return () => document.removeEventListener("fullscreenchange", handleFsChange);
+  }, []);
 
   const enterFullscreen = () => {
     void playerRef.current?.requestFullscreen?.();
@@ -154,6 +165,20 @@ export const SelectedVideoCard = ({
               aria-label={`Enter fullscreen for ${title}`}
               className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
+          )}
+
+          {isFullscreen && onToggleMuted && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleMuted();
+              }}
+              className="absolute bottom-9 left-1/2 z-20 -translate-x-1/2 rounded-full bg-foreground px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-background shadow-2xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-destructive align-middle" />
+              Sound {muted ? "off" : "on"}
+            </button>
           )}
         </div>
 
