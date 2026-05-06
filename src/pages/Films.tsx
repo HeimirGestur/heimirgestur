@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { VideoGrid } from "@/components/video/VideoGrid";
 import { useVideosByCategory } from "@/hooks/usePortfolioContent";
 
 const Films = () => {
   const { data: filmVideos = [] } = useVideosByCategory("films");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout>
