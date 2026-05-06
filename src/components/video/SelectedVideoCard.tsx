@@ -17,9 +17,10 @@ interface SelectedVideoCardProps {
   onToggleMuted?: () => void;
 }
 
-const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
+const buildIframeAutoplayUrl = (url: string) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=1&muted=${muted ? "1" : "0"}&loop=1&background=${muted ? "1" : "0"}&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
+  // Always start muted so browsers allow autoplay; mute toggled later via postMessage.
+  return `${url}${sep}autoplay=1&muted=1&loop=1&background=0&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1&api=1`;
 };
 
 export const SelectedVideoCard = ({
@@ -60,7 +61,7 @@ export const SelectedVideoCard = ({
 
   useEffect(() => {
     setIframeReady(false);
-  }, [videoUrl, showVideo, muted]);
+  }, [videoUrl, showVideo]);
 
   useEffect(() => {
     if (!isIframe || !showVideo) return;
@@ -90,6 +91,7 @@ export const SelectedVideoCard = ({
         sendCommand("addEventListener", "timeupdate");
         sendCommand("addEventListener", "play");
         sendCommand("addEventListener", "playing");
+        sendCommand("setVolume", muted ? 0 : 1);
       }
       if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
         setIframeReady(true);
@@ -114,6 +116,16 @@ export const SelectedVideoCard = ({
     onProgress?.(0);
   }, [isActive, onProgress]);
 
+  // Toggle Vimeo volume in-place when muted changes — does not affect playback
+  useEffect(() => {
+    if (!isIframe || !iframeReady) return;
+    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
+    iframe?.contentWindow?.postMessage(
+      JSON.stringify({ method: "setVolume", value: muted ? 0 : 1 }),
+      "*",
+    );
+  }, [muted, isIframe, iframeReady]);
+
   return (
     <article
       className="block w-full"
@@ -136,7 +148,7 @@ export const SelectedVideoCard = ({
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
-                src={buildIframeAutoplayUrl(videoUrl, muted)}
+                src={buildIframeAutoplayUrl(videoUrl)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
