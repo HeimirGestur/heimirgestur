@@ -61,7 +61,7 @@ export const SelectedVideoCard = ({
 
   useEffect(() => {
     setIframeReady(false);
-  }, [videoUrl, showVideo, muted]);
+  }, [videoUrl, showVideo]);
 
   useEffect(() => {
     if (!isIframe || !showVideo) return;
