@@ -72,6 +72,7 @@ const Index = () => {
                 isIframe={video.isIframe}
                 isActive={activeIndex === index}
                 muted={isMuted}
+                onToggleMuted={() => setIsMuted((v) => !v)}
                 onProgress={activeIndex === index ? setProgress : undefined}
                 progressBar={
                   <ProgressBar progress={activeIndex === index ? progress : 0} />
