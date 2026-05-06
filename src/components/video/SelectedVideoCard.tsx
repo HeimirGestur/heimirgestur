@@ -56,6 +56,14 @@ export const SelectedVideoCard = ({
     // Fallback: reveal iframe after a short delay in case postMessage events don't arrive.
     const timer = setTimeout(() => setIframeReady(true), 600);
 
+    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
+    const sendCommand = (method: string, value?: unknown) => {
+      iframe?.contentWindow?.postMessage(
+        JSON.stringify(value === undefined ? { method } : { method, value }),
+        "*",
+      );
+    };
+
     const handleMessage = (event: MessageEvent) => {
       if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
       let data = event.data;
@@ -66,8 +74,20 @@ export const SelectedVideoCard = ({
           return;
         }
       }
-      if (["play", "playing", "timeupdate", "progress", "ready"].includes(data?.event)) {
+      if (data?.event === "ready") {
         setIframeReady(true);
+        sendCommand("addEventListener", "timeupdate");
+        sendCommand("addEventListener", "play");
+        sendCommand("addEventListener", "playing");
+      }
+      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
+        setIframeReady(true);
+      }
+      if (data?.event === "timeupdate" && isActive && onProgress) {
+        const percent = typeof data?.data?.percent === "number"
+          ? data.data.percent * 100
+          : (data?.data?.duration ? (data.data.seconds / data.data.duration) * 100 : null);
+        if (percent !== null) onProgress(percent);
       }
     };
 
@@ -76,25 +96,12 @@ export const SelectedVideoCard = ({
       clearTimeout(timer);
       window.removeEventListener("message", handleMessage);
     };
-  }, [isIframe, showVideo]);
+  }, [isIframe, showVideo, isActive, onProgress]);
 
   useEffect(() => {
     if (isActive) return;
     onProgress?.(0);
   }, [isActive, onProgress]);
-
-  // Simulated progress for iframe videos (no timeupdate available)
-  useEffect(() => {
-    if (!isActive || !onProgress || !isIframe) return;
-    let p = 0;
-    onProgress(0);
-    const interval = setInterval(() => {
-      p = Math.min(p + 0.5, 100);
-      onProgress(p);
-      if (p >= 100) p = 0;
-    }, 100);
-    return () => clearInterval(interval);
-  }, [isActive, onProgress, isIframe]);
 
   return (
     <article
