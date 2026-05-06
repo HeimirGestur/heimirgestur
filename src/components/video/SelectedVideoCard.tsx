@@ -116,6 +116,16 @@ export const SelectedVideoCard = ({
     onProgress?.(0);
   }, [isActive, onProgress]);
 
+  // Toggle Vimeo volume in-place when muted changes — does not affect playback
+  useEffect(() => {
+    if (!isIframe || !iframeReady) return;
+    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
+    iframe?.contentWindow?.postMessage(
+      JSON.stringify({ method: "setVolume", value: muted ? 0 : 1 }),
+      "*",
+    );
+  }, [muted, isIframe, iframeReady]);
+
   return (
     <article
       className="block w-full"
