@@ -14,6 +14,7 @@ interface SelectedVideoCardProps {
   progressBar?: React.ReactNode;
   showInfo?: boolean;
   muted?: boolean;
+  onToggleMuted?: () => void;
 }
 
 const buildIframeAutoplayUrl = (url: string, muted: boolean) => {
