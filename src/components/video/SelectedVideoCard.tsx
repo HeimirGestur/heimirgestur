@@ -91,6 +91,7 @@ export const SelectedVideoCard = ({
         sendCommand("addEventListener", "timeupdate");
         sendCommand("addEventListener", "play");
         sendCommand("addEventListener", "playing");
+        sendCommand("setVolume", muted ? 0 : 1);
       }
       if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
         setIframeReady(true);
