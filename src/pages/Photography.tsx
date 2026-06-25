@@ -32,6 +32,7 @@ const photos = [
 const Photography = () => {
   const [index, setIndex] = useState(0);
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
 
   const next = useCallback(() => {
@@ -83,6 +84,21 @@ const Photography = () => {
     });
   }, [index]);
 
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    const threshold = 50;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) goNext();
+      else goPrev();
+    }
+    touchStartX.current = null;
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, width } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
@@ -95,8 +111,10 @@ const Photography = () => {
       <div className="fixed inset-0 flex items-center justify-center bg-background pt-16 pb-12 px-4">
         <div
           onClick={handleClick}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="relative w-full h-full cursor-pointer select-none"
-          style={{ cursor: "none" }}
+          style={{ cursor: "none", touchAction: "pan-y" }}
           onMouseMove={(e) => {
             const { left, width } = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - left;
