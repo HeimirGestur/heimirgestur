@@ -60,8 +60,8 @@ export const SelectedVideoCard = ({
   };
 
   useEffect(() => {
-    setShowVideo(isActive);
-  }, [isActive]);
+    setShowVideo(isActive || preload);
+  }, [isActive, preload]);
 
   useEffect(() => {
     setIframeReady(false);
