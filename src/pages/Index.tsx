@@ -79,7 +79,7 @@ const Index = () => {
                 }
                 showInfo
                 hideThumbnail={video.title.startsWith("The Bride")}
-                preload={Math.abs(activeIndex - index) === 1}
+                preload
               />
             </div>
           ))}
