@@ -5,6 +5,7 @@ const navItems = [
   { name: "Selected", path: "/" },
   { name: "Films", path: "/films" },
   { name: "Music Videos", path: "/music-videos" },
+  { name: "Photography", path: "/photography" },
 ];
 
 export const Header = () => {
