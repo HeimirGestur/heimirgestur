@@ -58,7 +58,7 @@ const VideoDetail = () => {
 
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-6xl">
-          <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
+          <div className="aspect-cinema bg-black rounded overflow-hidden mb-8">
             {(() => {
               const vimeoId = (video as { vimeo_id?: string }).vimeo_id;
               if (vimeoId) {
