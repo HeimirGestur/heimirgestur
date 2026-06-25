@@ -47,7 +47,7 @@ const VideoDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-foreground text-primary-foreground">
+    <div className="min-h-screen bg-black text-primary-foreground">
       <Link
         to="/"
         className="fixed top-6 left-6 z-50 flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
