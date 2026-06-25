@@ -84,6 +84,21 @@ const Photography = () => {
     });
   }, [index]);
 
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    const threshold = 50;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) goNext();
+      else goPrev();
+    }
+    touchStartX.current = null;
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, width } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
