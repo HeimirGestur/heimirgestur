@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Player from "@vimeo/player";
 import { HlsVideo } from "./HlsVideo";
 
 interface SelectedVideoCardProps {
@@ -46,6 +47,8 @@ export const SelectedVideoCard = ({
   const [iframeReady, setIframeReady] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const vimeoPlayerRef = useRef<Player | null>(null);
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -68,59 +71,68 @@ export const SelectedVideoCard = ({
   }, [videoUrl, showVideo]);
 
   useEffect(() => {
-    if (!isIframe || !showVideo) return;
-    // Fallback: reveal iframe after a short delay in case postMessage events don't arrive.
-    const timer = setTimeout(() => setIframeReady(true), 600);
+    if (!isIframe || !showVideo || !iframeRef.current) return;
 
-    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
-    const sendCommand = (method: string, value?: unknown) => {
-      iframe?.contentWindow?.postMessage(
-        JSON.stringify(value === undefined ? { method } : { method, value }),
-        "*",
-      );
+    const player = new Player(iframeRef.current);
+    vimeoPlayerRef.current = player;
+    let cancelled = false;
+    let pollFrame = 0;
+
+    const updateProgress = (percent: number) => {
+      if (!cancelled && isActive && onProgress) {
+        onProgress(Math.max(0, Math.min(100, percent * 100)));
+      }
     };
 
-    // Subscribe immediately (covers the case where the iframe was preloaded
-    // and already fired its "ready" event before this effect re-mounted).
-    const subscribe = () => {
-      sendCommand("addEventListener", "timeupdate");
-      sendCommand("addEventListener", "play");
-      sendCommand("addEventListener", "playing");
-      sendCommand("setVolume", muted ? 0 : 1);
-    };
-    subscribe();
-    const subRetry = setTimeout(subscribe, 400);
-
-    const handleMessage = (event: MessageEvent) => {
-      if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
-      let data = event.data;
-      if (typeof event.data === "string") {
+    const pollProgress = async () => {
+      if (cancelled) return;
+      if (isActive && onProgress) {
         try {
-          data = JSON.parse(event.data || "{}");
+          const [currentTime, duration] = await Promise.all([
+            player.getCurrentTime(),
+            player.getDuration(),
+          ]);
+          if (duration > 0) updateProgress(currentTime / duration);
         } catch {
-          return;
+          // The Vimeo player can reject while it is still initializing.
         }
       }
-      if (data?.event === "ready") {
-        setIframeReady(true);
-        subscribe();
-      }
-      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
-        setIframeReady(true);
-      }
-      if (data?.event === "timeupdate" && isActive && onProgress) {
-        const percent = typeof data?.data?.percent === "number"
-          ? data.data.percent * 100
-          : (data?.data?.duration ? (data.data.seconds / data.data.duration) * 100 : null);
-        if (percent !== null) onProgress(percent);
+      pollFrame = window.setTimeout(pollProgress, 250);
+    };
+
+    const handleTimeUpdate = (data: { percent?: number; seconds?: number; duration?: number }) => {
+      setIframeReady(true);
+      if (typeof data.percent === "number") {
+        updateProgress(data.percent);
+      } else if (data.duration && typeof data.seconds === "number") {
+        updateProgress(data.seconds / data.duration);
       }
     };
 
-    window.addEventListener("message", handleMessage);
+    const markReady = () => setIframeReady(true);
+    player.on("timeupdate", handleTimeUpdate);
+    player.on("play", markReady);
+    player.on("playing", markReady);
+    player.on("progress", markReady);
+
+    player.ready().then(() => {
+      if (cancelled) return;
+      setIframeReady(true);
+      void player.setVolume(muted ? 0 : 1).catch(() => undefined);
+      if (isActive) void player.play().catch(() => undefined);
+      void pollProgress();
+    }).catch(() => {
+      if (!cancelled) setIframeReady(true);
+    });
+
     return () => {
-      clearTimeout(timer);
-      clearTimeout(subRetry);
-      window.removeEventListener("message", handleMessage);
+      cancelled = true;
+      window.clearTimeout(pollFrame);
+      player.off("timeupdate", handleTimeUpdate);
+      player.off("play", markReady);
+      player.off("playing", markReady);
+      player.off("progress", markReady);
+      if (vimeoPlayerRef.current === player) vimeoPlayerRef.current = null;
     };
   }, [isIframe, showVideo, isActive, onProgress, muted]);
 
@@ -132,11 +144,7 @@ export const SelectedVideoCard = ({
   // Toggle Vimeo volume in-place when muted changes — does not affect playback
   useEffect(() => {
     if (!isIframe || !iframeReady) return;
-    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
-    iframe?.contentWindow?.postMessage(
-      JSON.stringify({ method: "setVolume", value: muted ? 0 : 1 }),
-      "*",
-    );
+    void vimeoPlayerRef.current?.setVolume(muted ? 0 : 1).catch(() => undefined);
   }, [muted, isIframe, iframeReady]);
 
   return (
@@ -163,6 +171,7 @@ export const SelectedVideoCard = ({
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
+                ref={iframeRef}
                 src={buildIframeAutoplayUrl(videoUrl)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
