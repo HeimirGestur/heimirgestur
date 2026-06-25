@@ -11,6 +11,7 @@ interface VideoCardProps {
   isIframe?: boolean;
   isYoutube?: boolean;
   variant?: "large" | "small";
+  preload?: boolean;
 }
 
 const buildIframeHoverUrl = (url: string) => {
