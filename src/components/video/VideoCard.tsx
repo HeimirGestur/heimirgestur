@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HlsVideo } from "./HlsVideo";
+import { getStartTime, appendVimeoStart } from "@/lib/videoStartTimes";
 
 interface VideoCardProps {
   id: string;
@@ -12,15 +13,20 @@ interface VideoCardProps {
   isYoutube?: boolean;
   variant?: "large" | "small";
   preload?: boolean;
+  startTime?: number;
+  vimeoId?: string;
 }
 
-const buildIframeHoverUrl = (url: string) => {
+const buildIframeHoverUrl = (url: string, startTime?: number) => {
   const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1`;
+  const base = `${url}${sep}autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&responsive=1`;
+  return appendVimeoStart(base, startTime);
 };
 
-const buildYoutubeHoverUrl = (videoId: string) =>
-  `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`;
+const buildYoutubeHoverUrl = (videoId: string, startTime?: number) => {
+  const start = startTime ? `&start=${startTime}` : "";
+  return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1${start}`;
+};
 
 export const VideoCard = ({
   id,
@@ -32,10 +38,13 @@ export const VideoCard = ({
   isYoutube = false,
   variant = "small",
   preload = false,
+  startTime,
+  vimeoId,
 }: VideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const showVideo = isHovered || preload;
+  const resolvedStart = startTime ?? getStartTime(videoUrl, vimeoId);
 
   return (
     <Link
@@ -64,7 +73,7 @@ export const VideoCard = ({
           {videoUrl && showVideo && (
             isYoutube ? (
               <iframe
-                src={buildYoutubeHoverUrl(videoUrl)}
+                src={buildYoutubeHoverUrl(videoUrl, resolvedStart)}
                 loading={preload ? undefined : "lazy"}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -73,7 +82,7 @@ export const VideoCard = ({
               />
             ) : isIframe ? (
               <iframe
-                src={buildIframeHoverUrl(videoUrl)}
+                src={buildIframeHoverUrl(videoUrl, resolvedStart)}
                 loading={preload ? undefined : "lazy"}
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
@@ -87,6 +96,7 @@ export const VideoCard = ({
                 autoPlay
                 muted
                 loop
+                startTime={resolvedStart}
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 title={title}
               />
