@@ -5,6 +5,7 @@ import { selectedVideos, filmVideos, musicVideos, commercialVideos } from "@/dat
 import { HlsVideo } from "@/components/video/HlsVideo";
 import { supabase } from "@/integrations/supabase/client";
 import { mapCmsVideo, type CmsVideo } from "@/hooks/usePortfolioContent";
+import { getStartTime, appendVimeoStart } from "@/lib/videoStartTimes";
 
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>();
