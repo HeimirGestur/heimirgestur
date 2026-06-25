@@ -37,6 +37,7 @@ export const VideoGrid = ({ videos, columns = 4, preload = false }: VideoGridPro
           isIframe={video.isIframe}
           isYoutube={video.isYoutube}
           variant="small"
+          preload={preload}
         />
       ))}
     </div>
