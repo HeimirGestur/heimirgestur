@@ -15,6 +15,7 @@ interface SelectedVideoCardProps {
   showInfo?: boolean;
   muted?: boolean;
   onToggleMuted?: () => void;
+  hideThumbnail?: boolean;
 }
 
 const buildIframeAutoplayUrl = (url: string) => {
