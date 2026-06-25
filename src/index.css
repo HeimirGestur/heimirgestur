@@ -118,6 +118,14 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
   }
+
+  :fullscreen {
+    background-color: black !important;
+  }
+
+  ::backdrop {
+    background-color: black;
+  }
 }
 
 @layer components {
