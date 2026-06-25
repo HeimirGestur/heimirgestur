@@ -9,6 +9,7 @@ import { mapCmsVideo, type CmsVideo } from "@/hooks/usePortfolioContent";
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>();
 
+
   const { data: cmsVideo } = useQuery({
     queryKey: ["video-detail", id],
     enabled: Boolean(id),
