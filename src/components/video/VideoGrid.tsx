@@ -9,6 +9,8 @@ interface Video {
   hover_video_url?: string;
   isIframe?: boolean;
   isYoutube?: boolean;
+  startTime?: number;
+  vimeo_id?: string;
 }
 
 interface VideoGridProps {
@@ -38,6 +40,8 @@ export const VideoGrid = ({ videos, columns = 4, preload = false }: VideoGridPro
           isYoutube={video.isYoutube}
           variant="small"
           preload={preload}
+          startTime={video.startTime}
+          vimeoId={video.vimeo_id}
         />
       ))}
     </div>
