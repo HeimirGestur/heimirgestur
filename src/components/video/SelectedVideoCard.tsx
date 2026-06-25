@@ -49,6 +49,10 @@ export const SelectedVideoCard = ({
   const playerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const vimeoPlayerRef = useRef<Player | null>(null);
+  const progressPercentRef = useRef(0);
+  const playerProgressAtRef = useRef(0);
+  const fallbackStartAtRef = useRef(0);
+  const fallbackDurationRef = useRef(24);
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -78,9 +82,15 @@ export const SelectedVideoCard = ({
     let cancelled = false;
     let pollFrame = 0;
 
-    const updateProgress = (percent: number) => {
+    const updateProgress = (percent: number, fromPlayer = false) => {
+      const boundedPercent = Math.max(0, Math.min(100, percent * 100));
+      progressPercentRef.current = boundedPercent;
+      if (fromPlayer) {
+        playerProgressAtRef.current = performance.now();
+        fallbackStartAtRef.current = performance.now() - (boundedPercent / 100) * fallbackDurationRef.current * 1000;
+      }
       if (!cancelled && isActive && onProgress) {
-        onProgress(Math.max(0, Math.min(100, percent * 100)));
+        onProgress(boundedPercent);
       }
     };
 
@@ -92,7 +102,10 @@ export const SelectedVideoCard = ({
             player.getCurrentTime(),
             player.getDuration(),
           ]);
-          if (duration > 0) updateProgress(currentTime / duration);
+          if (duration > 0) {
+            fallbackDurationRef.current = duration;
+            updateProgress(currentTime / duration, true);
+          }
         } catch {
           // The Vimeo player can reject while it is still initializing.
         }
@@ -103,10 +116,25 @@ export const SelectedVideoCard = ({
     const handleTimeUpdate = (data: { percent?: number; seconds?: number; duration?: number }) => {
       setIframeReady(true);
       if (typeof data.percent === "number") {
-        updateProgress(data.percent);
+        if (data.duration) fallbackDurationRef.current = data.duration;
+        updateProgress(data.percent, true);
       } else if (data.duration && typeof data.seconds === "number") {
-        updateProgress(data.seconds / data.duration);
+        fallbackDurationRef.current = data.duration;
+        updateProgress(data.seconds / data.duration, true);
       }
+    };
+
+    const tickFallback = () => {
+      if (cancelled) return;
+      const now = performance.now();
+      if (isActive && onProgress && now - playerProgressAtRef.current > 1200) {
+        const durationMs = Math.max(1, fallbackDurationRef.current) * 1000;
+        if (!fallbackStartAtRef.current) {
+          fallbackStartAtRef.current = now - (progressPercentRef.current / 100) * durationMs;
+        }
+        updateProgress(((now - fallbackStartAtRef.current) % durationMs) / durationMs);
+      }
+      pollFrame = window.setTimeout(tickFallback, 250);
     };
 
     const markReady = () => setIframeReady(true);
@@ -115,12 +143,17 @@ export const SelectedVideoCard = ({
     player.on("playing", markReady);
     player.on("progress", markReady);
 
+    playerProgressAtRef.current = performance.now();
+    fallbackStartAtRef.current = performance.now() - (progressPercentRef.current / 100) * fallbackDurationRef.current * 1000;
+    pollFrame = window.setTimeout(tickFallback, 250);
+
     player.ready().then(() => {
       if (cancelled) return;
       setIframeReady(true);
       void player.setVolume(muted ? 0 : 1).catch(() => undefined);
       if (isActive) void player.play().catch(() => undefined);
-      void pollProgress();
+      window.clearTimeout(pollFrame);
+      pollFrame = window.setTimeout(pollProgress, 250);
     }).catch(() => {
       if (!cancelled) setIframeReady(true);
     });
@@ -138,6 +171,8 @@ export const SelectedVideoCard = ({
 
   useEffect(() => {
     if (isActive) return;
+    progressPercentRef.current = 0;
+    fallbackStartAtRef.current = 0;
     onProgress?.(0);
   }, [isActive, onProgress]);
 
