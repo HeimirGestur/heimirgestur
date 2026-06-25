@@ -19,6 +19,14 @@ const photos = [
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782388087/7small22_u2hspc.jpg",
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782388088/8small2_fakncv.jpg",
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/20750009small_nlw1js.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360014small_cvl0gf.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360012_small_pbevnt.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360013small_ur14u4.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360029small_wi2ufw.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360002small_gcfswp.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18350011small_q1xyv2.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360007small_m0bify.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360006small_ehsjny.jpg",
 ];
 
 const Photography = () => {
