@@ -57,7 +57,7 @@ export const VideoCard = ({
               (e.currentTarget as HTMLImageElement).style.display = "none";
             }}
             className={`video-card-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              isHovered && videoUrl ? "opacity-0" : "opacity-100"
+              showVideo && videoUrl ? "opacity-0" : "opacity-100"
             }`}
           />
 
