@@ -79,7 +79,7 @@ export const HlsVideo = ({
       return;
     }
 
-    if (autoPlay && !v.paused) {
+    if (autoPlay) {
       const now = performance.now();
       const durationMs = fallbackDurationRef.current * 1000;
       if (!fallbackStartAtRef.current) fallbackStartAtRef.current = now;
