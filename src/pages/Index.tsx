@@ -71,7 +71,7 @@ const Index = () => {
                 videoUrl={video.hover_video_url || video.videoUrl}
                 isIframe={video.isIframe}
                 isActive={activeIndex === index}
-                muted={isMuted}
+                muted={isMuted || activeIndex !== index}
                 onToggleMuted={() => setIsMuted((v) => !v)}
                 onProgress={activeIndex === index ? setProgress : undefined}
                 progressBar={
