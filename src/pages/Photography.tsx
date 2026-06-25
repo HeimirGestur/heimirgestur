@@ -111,9 +111,6 @@ const Photography = () => {
             draggable={false}
           />
         </div>
-        <div className="fixed bottom-4 left-0 right-0 flex justify-center font-mono text-[10px] tracking-widest text-foreground/70 pointer-events-none">
-          {String(index + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
-        </div>
       </div>
     </Layout>
   );
