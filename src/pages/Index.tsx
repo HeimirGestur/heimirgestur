@@ -3,6 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SelectedVideoCard } from "@/components/video/SelectedVideoCard";
 import { ProgressBar } from "@/components/video/ProgressBar";
 import { useVideosByCategory } from "@/hooks/usePortfolioContent";
+import { VideoGrid } from "@/components/video/VideoGrid";
+import { musicVideos } from "@/data/mockVideos";
 
 const Index = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -105,6 +107,9 @@ const Index = () => {
           <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-destructive align-middle" />
           Sound {isMuted ? "off" : "on"}
         </button>
+      </div>
+      <div aria-hidden="true" className="sr-only">
+        <VideoGrid videos={musicVideos} columns={4} preload />
       </div>
     </Layout>
   );
