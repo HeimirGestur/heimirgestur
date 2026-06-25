@@ -62,8 +62,12 @@ export const SelectedVideoCard = ({
     return () => document.removeEventListener("fullscreenchange", handleFsChange);
   }, []);
 
-  const enterFullscreen = () => {
-    void playerRef.current?.requestFullscreen?.();
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement === playerRef.current) {
+      void document.exitFullscreen?.();
+    } else {
+      void playerRef.current?.requestFullscreen?.();
+    }
   };
 
   useEffect(() => {
