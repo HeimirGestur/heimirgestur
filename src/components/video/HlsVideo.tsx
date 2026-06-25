@@ -25,6 +25,8 @@ export const HlsVideo = ({
   title,
 }: HlsVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const fallbackStartAtRef = useRef(0);
+  const fallbackDurationRef = useRef(24);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -70,8 +72,18 @@ export const HlsVideo = ({
   const handleTimeUpdate = () => {
     if (!onTimeUpdate || !videoRef.current) return;
     const v = videoRef.current;
-    if (v.duration > 0) {
+    if (Number.isFinite(v.duration) && v.duration > 0) {
+      fallbackDurationRef.current = v.duration;
+      fallbackStartAtRef.current = performance.now() - v.currentTime * 1000;
       onTimeUpdate((v.currentTime / v.duration) * 100);
+      return;
+    }
+
+    if (autoPlay && !v.paused) {
+      const now = performance.now();
+      const durationMs = fallbackDurationRef.current * 1000;
+      if (!fallbackStartAtRef.current) fallbackStartAtRef.current = now;
+      onTimeUpdate(((now - fallbackStartAtRef.current) % durationMs) / durationMs * 100);
     }
   };
 
