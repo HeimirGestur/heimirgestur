@@ -59,16 +59,18 @@ export const VideoCard = ({
             variant === "large" ? "aspect-cinema" : "aspect-video"
           }`}
         >
-          <img
-            src={thumbnail}
-            alt={title}
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-            className={`video-card-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              showVideo && videoUrl ? "opacity-0" : "opacity-100"
-            }`}
-          />
+          {!(preload && videoUrl) && (
+            <img
+              src={thumbnail}
+              alt={title}
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+              className={`video-card-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                showVideo && videoUrl ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          )}
 
           {videoUrl && showVideo && (
             isYoutube ? (
