@@ -62,8 +62,12 @@ export const SelectedVideoCard = ({
     return () => document.removeEventListener("fullscreenchange", handleFsChange);
   }, []);
 
-  const enterFullscreen = () => {
-    void playerRef.current?.requestFullscreen?.();
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement === playerRef.current) {
+      void document.exitFullscreen?.();
+    } else {
+      void playerRef.current?.requestFullscreen?.();
+    }
   };
 
   useEffect(() => {
@@ -243,8 +247,8 @@ export const SelectedVideoCard = ({
           {videoUrl && (
             <button
               type="button"
-              onClick={enterFullscreen}
-              aria-label={`Enter fullscreen for ${title}`}
+              onClick={toggleFullscreen}
+              aria-label={`Toggle fullscreen for ${title}`}
               className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           )}
