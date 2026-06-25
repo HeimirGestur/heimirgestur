@@ -78,10 +78,10 @@ const VideoDetail = () => {
               if (video.isYoutube) {
                 return (
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`}
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full border-0"
+                    className="w-full h-full border-0 scale-150"
                     title={video.title}
                   />
                 );
