@@ -50,13 +50,17 @@ const VideoDetail = () => {
 
   return (
     <div className="min-h-screen bg-black text-primary-foreground">
-      <Link
-        to="/"
+      <button
+        type="button"
+        onClick={() => {
+          if (window.history.length > 1) navigate(-1);
+          else navigate("/");
+        }}
         className="fixed top-6 left-6 z-50 flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
       >
         <ArrowLeft size={20} />
         <span className="font-sans text-sm">Back</span>
-      </Link>
+      </button>
 
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-6xl">
