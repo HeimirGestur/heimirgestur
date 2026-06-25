@@ -69,15 +69,15 @@ export const selectedVideos: Video[] = [
 export const filmVideos: Video[] = [
   { id: "f6", title: "The Bride Director. Hjördís Jóhannsdóttir", thumbnail: thumb(G.bride), videoUrl: "https://res.cloudinary.com/dltrwdadi/video/upload/v1777896270/The%20Bride.mp4", startTime: 4, category: "films" },
   { id: "f7", title: "The Shack Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.shack), videoUrl: hls(G.shack), startTime: 31, category: "films" },
+  { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
+  { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
+  { id: "f10", title: "FLOOD Documentary", thumbnail: vimeoThumbs.flood, videoUrl: "https://player.vimeo.com/video/1096545256", isIframe: true, startTime: 39, category: "films" },
   { id: "f9", title: "Pleśn", thumbnail: thumb(G.plesn), videoUrl: hls(G.plesn), startTime: 15, category: "films" },
   { id: "f-ryba", title: "RYBA", thumbnail: vimeoThumbs.ryba, videoUrl: "https://player.vimeo.com/video/234761802", isIframe: true, startTime: 32, category: "films" },
-  { id: "f10", title: "FLOOD Documentary", thumbnail: vimeoThumbs.flood, videoUrl: "https://player.vimeo.com/video/1096545256", isIframe: true, startTime: 39, category: "films" },
-  { id: "f5", title: "Bobby Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.bobby), videoUrl: hls(G.bobby), category: "films" },
-  { id: "f8", title: "CĆCĆ", thumbnail: vimeoThumbs.cccc, videoUrl: "https://player.vimeo.com/video/1096566683", isIframe: true, startTime: 113, category: "films" },
-  { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
   { id: "f1", title: "KJÖT", thumbnail: vimeoThumbs.kjot, videoUrl: "https://player.vimeo.com/video/67522255", isIframe: true, startTime: 53, category: "films" },
   { id: "f3", title: "Breakfast of a Blind Man", thumbnail: thumb(G.meal), videoUrl: hls(G.meal), category: "films" },
-  { id: "f2", title: "Grace Director. Sigurður Möller Sívertsen", thumbnail: thumb(G.grace), videoUrl: hls(G.grace), category: "films" },
+  { id: "f8", title: "CĆCĆ", thumbnail: vimeoThumbs.cccc, videoUrl: "https://player.vimeo.com/video/1096566683", isIframe: true, startTime: 113, category: "films" },
+  { id: "f4", title: "She looks at flowers", thumbnail: thumb(G.flowers), videoUrl: hls(G.flowers), category: "films" },
 ];
 
 const yt = (id: string, title: string, n: number): Video => ({
