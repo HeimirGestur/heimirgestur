@@ -16,6 +16,7 @@ interface SelectedVideoCardProps {
   muted?: boolean;
   onToggleMuted?: () => void;
   hideThumbnail?: boolean;
+  preload?: boolean;
 }
 
 const buildIframeAutoplayUrl = (url: string) => {
@@ -38,6 +39,7 @@ export const SelectedVideoCard = ({
   muted = true,
   onToggleMuted,
   hideThumbnail = false,
+  preload = false,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -58,8 +60,8 @@ export const SelectedVideoCard = ({
   };
 
   useEffect(() => {
-    setShowVideo(isActive);
-  }, [isActive]);
+    setShowVideo(isActive || preload);
+  }, [isActive, preload]);
 
   useEffect(() => {
     setIframeReady(false);
