@@ -61,11 +61,11 @@ export const VideoCard = ({
             }`}
           />
 
-          {videoUrl && isHovered && (
+          {videoUrl && showVideo && (
             isYoutube ? (
               <iframe
                 src={buildYoutubeHoverUrl(videoUrl)}
-                loading="lazy"
+                loading={preload ? undefined : "lazy"}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full border-0 pointer-events-none scale-150"
@@ -74,7 +74,7 @@ export const VideoCard = ({
             ) : isIframe ? (
               <iframe
                 src={buildIframeHoverUrl(videoUrl)}
-                loading="lazy"
+                loading={preload ? undefined : "lazy"}
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full border-0 pointer-events-none"
