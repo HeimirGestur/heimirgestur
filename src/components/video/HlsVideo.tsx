@@ -11,6 +11,7 @@ interface HlsVideoProps {
   className?: string;
   onTimeUpdate?: (progress: number) => void;
   title?: string;
+  startTime?: number;
 }
 
 export const HlsVideo = ({
@@ -23,6 +24,7 @@ export const HlsVideo = ({
   className,
   onTimeUpdate,
   title,
+  startTime,
 }: HlsVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const fallbackStartAtRef = useRef(0);
@@ -49,6 +51,34 @@ export const HlsVideo = ({
       video.src = src;
     }
 
+    const seekToStart = () => {
+      if (startTime && video.currentTime < startTime - 0.5) {
+        try {
+          video.currentTime = startTime;
+        } catch {
+          /* ignore */
+        }
+      }
+    };
+
+    const handleLoadedMetadata = () => {
+      seekToStart();
+    };
+
+    const handleSeekedOrEnded = () => {
+      if (loop && startTime) {
+        try {
+          video.currentTime = startTime;
+          if (autoPlay) void video.play().catch(() => {});
+        } catch {
+          /* ignore */
+        }
+      }
+    };
+
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("ended", handleSeekedOrEnded);
+
     if (autoPlay) {
       const tryPlay = () => {
         video.play().catch(() => {
@@ -61,13 +91,15 @@ export const HlsVideo = ({
     }
 
     return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("ended", handleSeekedOrEnded);
       if (hls) {
         hls.destroy();
       }
       video.removeAttribute("src");
       video.load();
     };
-  }, [src, autoPlay]);
+  }, [src, autoPlay, startTime, loop]);
 
   const handleTimeUpdate = () => {
     if (!onTimeUpdate || !videoRef.current) return;
