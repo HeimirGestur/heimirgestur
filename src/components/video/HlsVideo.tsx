@@ -54,6 +54,8 @@ export const HlsVideo = ({
         });
       };
       video.addEventListener("loadedmetadata", tryPlay, { once: true });
+      video.addEventListener("canplay", tryPlay, { once: true });
+      tryPlay();
     }
 
     return () => {
@@ -73,6 +75,12 @@ export const HlsVideo = ({
     }
   };
 
+  useEffect(() => {
+    if (!onTimeUpdate) return;
+    const timer = window.setInterval(handleTimeUpdate, 250);
+    return () => window.clearInterval(timer);
+  }, [onTimeUpdate]);
+
   return (
     <video
       ref={videoRef}
@@ -85,6 +93,8 @@ export const HlsVideo = ({
       preload="auto"
       className={className}
       onTimeUpdate={handleTimeUpdate}
+      onLoadedMetadata={handleTimeUpdate}
+      onPlay={handleTimeUpdate}
       title={title}
     />
   );
