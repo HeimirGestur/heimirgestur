@@ -98,7 +98,7 @@ const Photography = () => {
       <div className="fixed inset-0 flex items-center justify-center bg-background pt-16 pb-12 px-4">
         <div
           onClick={handleClick}
-          className="relative w-full h-full flex items-center justify-center cursor-pointer select-none"
+          className="relative w-full h-full cursor-pointer select-none"
           style={{ cursor: "none" }}
           onMouseMove={(e) => {
             const { left, width } = e.currentTarget.getBoundingClientRect();
@@ -106,13 +106,17 @@ const Photography = () => {
             e.currentTarget.style.cursor = x < width / 2 ? "w-resize" : "e-resize";
           }}
         >
-          <img
-            key={photos[index]}
-            src={photos[index]}
-            alt={`Photograph ${index + 1}`}
-            className="max-w-full max-h-full object-contain animate-fade-in"
-            draggable={false}
-          />
+          {photos.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`Photograph ${i + 1}`}
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out pointer-events-none ${
+                i === index ? "opacity-100" : "opacity-0"
+              }`}
+              draggable={false}
+            />
+          ))}
         </div>
         <div className="fixed bottom-4 left-0 right-0 flex justify-center font-mono text-[10px] tracking-widest text-foreground/70 pointer-events-none">
           {String(index + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
