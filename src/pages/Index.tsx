@@ -108,6 +108,9 @@ const Index = () => {
           Sound {isMuted ? "off" : "on"}
         </button>
       </div>
+      <div aria-hidden="true" className="sr-only">
+        <VideoGrid videos={musicVideos} columns={4} preload />
+      </div>
     </Layout>
   );
 };
