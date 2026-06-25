@@ -78,6 +78,7 @@ const Index = () => {
                   <ProgressBar progress={activeIndex === index ? progress : 0} />
                 }
                 showInfo
+                hideThumbnail={video.title.startsWith("The Bride")}
               />
             </div>
           ))}

@@ -102,7 +102,7 @@ const VideoDetail = () => {
               return (
                 <HlsVideo
                   src={video.videoUrl}
-                  poster={video.thumbnail}
+                  poster={video.title.startsWith("The Bride") ? undefined : video.thumbnail}
                   autoPlay
                   muted={false}
                   controls
