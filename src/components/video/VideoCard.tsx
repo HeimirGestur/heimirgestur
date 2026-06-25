@@ -68,7 +68,7 @@ export const VideoCard = ({
                 loading={preload ? undefined : "lazy"}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full border-0 pointer-events-none scale-150"
+                className="absolute inset-0 w-full h-full border-0 pointer-events-none"
                 title={title}
               />
             ) : isIframe ? (
