@@ -33,9 +33,6 @@ const Photography = () => {
   const [index, setIndex] = useState(0);
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % photos.length);

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Mail, Instagram, Video, Link as LinkIcon } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { useAboutMe, useContactPage } from "@/hooks/usePortfolioContent";
@@ -11,10 +10,6 @@ const Contact = () => {
   const { data: about } = useAboutMe();
   const { data: contact } = useContactPage();
   const bioParagraphs = (about?.bio || fallbackBio).split("\n").filter(Boolean);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const emailRows = [
     contact?.features_email && { label: "Features", href: `mailto:${contact.features_email}`, value: contact.features_name ? `${contact.features_name} · ${contact.features_email}` : contact.features_email },
