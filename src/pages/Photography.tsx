@@ -31,43 +31,18 @@ const photos = [
 
 const Photography = () => {
   const [index, setIndex] = useState(0);
-  const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const next = useCallback(() => {
+  const goNext = useCallback(() => {
     setIndex((i) => (i + 1) % photos.length);
   }, []);
 
-  const prev = useCallback(() => {
+  const goPrev = useCallback(() => {
     setIndex((i) => (i - 1 + photos.length) % photos.length);
   }, []);
-
-  const goNext = useCallback(() => {
-    next();
-    resetAuto();
-  }, [next]);
-
-  const goPrev = useCallback(() => {
-    prev();
-    resetAuto();
-  }, [prev]);
-
-  const resetAuto = useCallback(() => {
-    if (autoRef.current) clearInterval(autoRef.current);
-    autoRef.current = setInterval(() => {
-      setIndex((i) => (i + 1) % photos.length);
-    }, 5000);
-  }, []);
-
-  useEffect(() => {
-    resetAuto();
-    return () => {
-      if (autoRef.current) clearInterval(autoRef.current);
-    };
-  }, [resetAuto]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
