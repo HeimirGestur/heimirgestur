@@ -80,6 +80,17 @@ export const SelectedVideoCard = ({
       );
     };
 
+    // Subscribe immediately (covers the case where the iframe was preloaded
+    // and already fired its "ready" event before this effect re-mounted).
+    const subscribe = () => {
+      sendCommand("addEventListener", "timeupdate");
+      sendCommand("addEventListener", "play");
+      sendCommand("addEventListener", "playing");
+      sendCommand("setVolume", muted ? 0 : 1);
+    };
+    subscribe();
+    const subRetry = setTimeout(subscribe, 400);
+
     const handleMessage = (event: MessageEvent) => {
       if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
       let data = event.data;
@@ -92,10 +103,7 @@ export const SelectedVideoCard = ({
       }
       if (data?.event === "ready") {
         setIframeReady(true);
-        sendCommand("addEventListener", "timeupdate");
-        sendCommand("addEventListener", "play");
-        sendCommand("addEventListener", "playing");
-        sendCommand("setVolume", muted ? 0 : 1);
+        subscribe();
       }
       if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
         setIframeReady(true);
@@ -111,9 +119,10 @@ export const SelectedVideoCard = ({
     window.addEventListener("message", handleMessage);
     return () => {
       clearTimeout(timer);
+      clearTimeout(subRetry);
       window.removeEventListener("message", handleMessage);
     };
-  }, [isIframe, showVideo, isActive, onProgress]);
+  }, [isIframe, showVideo, isActive, onProgress, muted]);
 
   useEffect(() => {
     if (isActive) return;
