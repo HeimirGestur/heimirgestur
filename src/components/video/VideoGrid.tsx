@@ -14,9 +14,10 @@ interface Video {
 interface VideoGridProps {
   videos: Video[];
   columns?: 2 | 3 | 4;
+  preload?: boolean;
 }
 
-export const VideoGrid = ({ videos, columns = 4 }: VideoGridProps) => {
+export const VideoGrid = ({ videos, columns = 4, preload = false }: VideoGridProps) => {
   const gridCols = {
     2: "grid-cols-1 md:grid-cols-2",
     3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
