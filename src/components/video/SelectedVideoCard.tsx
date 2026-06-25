@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Player from "@vimeo/player";
 import { HlsVideo } from "./HlsVideo";
 
 interface SelectedVideoCardProps {
@@ -46,6 +47,12 @@ export const SelectedVideoCard = ({
   const [iframeReady, setIframeReady] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const vimeoPlayerRef = useRef<Player | null>(null);
+  const progressPercentRef = useRef(0);
+  const playerProgressAtRef = useRef(0);
+  const fallbackStartAtRef = useRef(0);
+  const fallbackDurationRef = useRef(24);
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -68,75 +75,122 @@ export const SelectedVideoCard = ({
   }, [videoUrl, showVideo]);
 
   useEffect(() => {
-    if (!isIframe || !showVideo) return;
-    // Fallback: reveal iframe after a short delay in case postMessage events don't arrive.
-    const timer = setTimeout(() => setIframeReady(true), 600);
+    if (!isIframe || !showVideo || !iframeRef.current) return;
 
-    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
-    const sendCommand = (method: string, value?: unknown) => {
-      iframe?.contentWindow?.postMessage(
-        JSON.stringify(value === undefined ? { method } : { method, value }),
-        "*",
-      );
+    const player = new Player(iframeRef.current);
+    vimeoPlayerRef.current = player;
+    let cancelled = false;
+    let pollFrame = 0;
+
+    const updateProgress = (percent: number, fromPlayer = false) => {
+      const boundedPercent = Math.max(0, Math.min(100, percent * 100));
+      progressPercentRef.current = boundedPercent;
+      if (fromPlayer) {
+        playerProgressAtRef.current = performance.now();
+        fallbackStartAtRef.current = performance.now() - (boundedPercent / 100) * fallbackDurationRef.current * 1000;
+      }
+      if (!cancelled && isActive && onProgress) {
+        onProgress(boundedPercent);
+      }
     };
 
-    // Subscribe immediately (covers the case where the iframe was preloaded
-    // and already fired its "ready" event before this effect re-mounted).
-    const subscribe = () => {
-      sendCommand("addEventListener", "timeupdate");
-      sendCommand("addEventListener", "play");
-      sendCommand("addEventListener", "playing");
-      sendCommand("setVolume", muted ? 0 : 1);
-    };
-    subscribe();
-    const subRetry = setTimeout(subscribe, 400);
-
-    const handleMessage = (event: MessageEvent) => {
-      if (typeof event.origin === "string" && !event.origin.includes("vimeo.com")) return;
-      let data = event.data;
-      if (typeof event.data === "string") {
+    const pollProgress = async () => {
+      if (cancelled) return;
+      if (isActive && onProgress) {
+        const runFallback = () => {
+          const now = performance.now();
+          const durationMs = Math.max(1, fallbackDurationRef.current) * 1000;
+          if (!fallbackStartAtRef.current) {
+            fallbackStartAtRef.current = now - (progressPercentRef.current / 100) * durationMs;
+          }
+          updateProgress(((now - fallbackStartAtRef.current) % durationMs) / durationMs);
+        };
         try {
-          data = JSON.parse(event.data || "{}");
+          const [currentTime, duration] = await Promise.all([
+            player.getCurrentTime(),
+            player.getDuration(),
+          ]);
+          if (duration > 0) {
+            fallbackDurationRef.current = duration;
+            updateProgress(currentTime / duration, true);
+          } else {
+            runFallback();
+          }
         } catch {
-          return;
+          // The Vimeo player can reject while it is still initializing.
+          runFallback();
         }
       }
-      if (data?.event === "ready") {
-        setIframeReady(true);
-        subscribe();
-      }
-      if (["play", "playing", "timeupdate", "progress"].includes(data?.event)) {
-        setIframeReady(true);
-      }
-      if (data?.event === "timeupdate" && isActive && onProgress) {
-        const percent = typeof data?.data?.percent === "number"
-          ? data.data.percent * 100
-          : (data?.data?.duration ? (data.data.seconds / data.data.duration) * 100 : null);
-        if (percent !== null) onProgress(percent);
+      pollFrame = window.setTimeout(pollProgress, 250);
+    };
+
+    const handleTimeUpdate = (data: { percent?: number; seconds?: number; duration?: number }) => {
+      setIframeReady(true);
+      if (typeof data.percent === "number") {
+        if (data.duration) fallbackDurationRef.current = data.duration;
+        updateProgress(data.percent, true);
+      } else if (data.duration && typeof data.seconds === "number") {
+        fallbackDurationRef.current = data.duration;
+        updateProgress(data.seconds / data.duration, true);
       }
     };
 
-    window.addEventListener("message", handleMessage);
+    const tickFallback = () => {
+      if (cancelled) return;
+      const now = performance.now();
+      if (isActive && onProgress && now - playerProgressAtRef.current > 1200) {
+        const durationMs = Math.max(1, fallbackDurationRef.current) * 1000;
+        if (!fallbackStartAtRef.current) {
+          fallbackStartAtRef.current = now - (progressPercentRef.current / 100) * durationMs;
+        }
+        updateProgress(((now - fallbackStartAtRef.current) % durationMs) / durationMs);
+      }
+      pollFrame = window.setTimeout(tickFallback, 250);
+    };
+
+    const markReady = () => setIframeReady(true);
+    player.on("timeupdate", handleTimeUpdate);
+    player.on("play", markReady);
+    player.on("playing", markReady);
+    player.on("progress", markReady);
+
+    playerProgressAtRef.current = performance.now();
+    fallbackStartAtRef.current = performance.now() - (progressPercentRef.current / 100) * fallbackDurationRef.current * 1000;
+    pollFrame = window.setTimeout(tickFallback, 250);
+
+    player.ready().then(() => {
+      if (cancelled) return;
+      setIframeReady(true);
+      void player.setVolume(muted ? 0 : 1).catch(() => undefined);
+      if (isActive) void player.play().catch(() => undefined);
+      window.clearTimeout(pollFrame);
+      pollFrame = window.setTimeout(pollProgress, 250);
+    }).catch(() => {
+      if (!cancelled) setIframeReady(true);
+    });
+
     return () => {
-      clearTimeout(timer);
-      clearTimeout(subRetry);
-      window.removeEventListener("message", handleMessage);
+      cancelled = true;
+      window.clearTimeout(pollFrame);
+      player.off("timeupdate", handleTimeUpdate);
+      player.off("play", markReady);
+      player.off("playing", markReady);
+      player.off("progress", markReady);
+      if (vimeoPlayerRef.current === player) vimeoPlayerRef.current = null;
     };
   }, [isIframe, showVideo, isActive, onProgress, muted]);
 
   useEffect(() => {
     if (isActive) return;
+    progressPercentRef.current = 0;
+    fallbackStartAtRef.current = 0;
     onProgress?.(0);
   }, [isActive, onProgress]);
 
   // Toggle Vimeo volume in-place when muted changes — does not affect playback
   useEffect(() => {
     if (!isIframe || !iframeReady) return;
-    const iframe = playerRef.current?.querySelector("iframe") as HTMLIFrameElement | null;
-    iframe?.contentWindow?.postMessage(
-      JSON.stringify({ method: "setVolume", value: muted ? 0 : 1 }),
-      "*",
-    );
+    void vimeoPlayerRef.current?.setVolume(muted ? 0 : 1).catch(() => undefined);
   }, [muted, isIframe, iframeReady]);
 
   return (
@@ -163,6 +217,7 @@ export const SelectedVideoCard = ({
           {videoUrl && showVideo && (
             isIframe ? (
               <iframe
+                ref={iframeRef}
                 src={buildIframeAutoplayUrl(videoUrl)}
                 loading="lazy"
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
