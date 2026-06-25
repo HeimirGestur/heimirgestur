@@ -3,6 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SelectedVideoCard } from "@/components/video/SelectedVideoCard";
 import { ProgressBar } from "@/components/video/ProgressBar";
 import { useVideosByCategory } from "@/hooks/usePortfolioContent";
+import { VideoGrid } from "@/components/video/VideoGrid";
+import { musicVideos } from "@/data/mockVideos";
 
 const Index = () => {
   const [activeIndex, setActiveIndex] = useState(0);
