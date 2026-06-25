@@ -62,10 +62,12 @@ const VideoDetail = () => {
           <div className="aspect-cinema bg-black rounded overflow-hidden mb-8">
             {(() => {
               const vimeoId = (video as { vimeo_id?: string }).vimeo_id;
+              const startTime = (video as { startTime?: number }).startTime ?? getStartTime(video.videoUrl, vimeoId);
               if (vimeoId) {
+                const base = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&responsive=true&transparent=1`;
                 return (
                   <iframe
-                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&responsive=true&transparent=1`}
+                    src={appendVimeoStart(base, startTime)}
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
                     className="w-full h-full border-0"
@@ -77,9 +79,10 @@ const VideoDetail = () => {
                 return <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />;
               }
               if (video.isYoutube) {
+                const ytStart = startTime ? `&start=${startTime}` : "";
                 return (
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1${ytStart}`}
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full border-0 scale-150"
@@ -88,9 +91,10 @@ const VideoDetail = () => {
                 );
               }
               if (video.isIframe) {
+                const base = `${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&muted=1&responsive=true&transparent=1`;
                 return (
                   <iframe
-                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&muted=1&responsive=true&transparent=1`}
+                    src={appendVimeoStart(base, startTime)}
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
                     className="w-full h-full border-0"
@@ -105,6 +109,7 @@ const VideoDetail = () => {
                   autoPlay
                   muted
                   controls
+                  startTime={startTime}
                   className="w-full h-full object-contain bg-black"
                   title={video.title}
                 />
