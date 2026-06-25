@@ -64,8 +64,7 @@ const VideoDetail = () => {
               if (vimeoId) {
                 return (
                   <iframe
-                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true&transparent=1`}
-                    loading="lazy"
+                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&responsive=true&transparent=1`}
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
                     className="w-full h-full border-0"
@@ -79,8 +78,7 @@ const VideoDetail = () => {
               if (video.isYoutube) {
                 return (
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-                    loading="lazy"
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1`}
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full border-0"
@@ -91,8 +89,7 @@ const VideoDetail = () => {
               if (video.isIframe) {
                 return (
                   <iframe
-                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true&transparent=1`}
-                    loading="lazy"
+                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&muted=1&responsive=true&transparent=1`}
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
                     className="w-full h-full border-0"
@@ -105,7 +102,7 @@ const VideoDetail = () => {
                   src={video.videoUrl}
                   poster={video.title.startsWith("The Bride") ? undefined : video.thumbnail}
                   autoPlay
-                  muted={false}
+                  muted
                   controls
                   className="w-full h-full object-contain bg-black"
                   title={video.title}
