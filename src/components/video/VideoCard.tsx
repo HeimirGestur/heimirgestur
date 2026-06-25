@@ -31,8 +31,11 @@ export const VideoCard = ({
   isIframe = false,
   isYoutube = false,
   variant = "small",
+  preload = false,
 }: VideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const showVideo = isHovered || preload;
 
   return (
     <Link
