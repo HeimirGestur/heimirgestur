@@ -97,6 +97,14 @@ export const SelectedVideoCard = ({
     const pollProgress = async () => {
       if (cancelled) return;
       if (isActive && onProgress) {
+        const runFallback = () => {
+          const now = performance.now();
+          const durationMs = Math.max(1, fallbackDurationRef.current) * 1000;
+          if (!fallbackStartAtRef.current) {
+            fallbackStartAtRef.current = now - (progressPercentRef.current / 100) * durationMs;
+          }
+          updateProgress(((now - fallbackStartAtRef.current) % durationMs) / durationMs);
+        };
         try {
           const [currentTime, duration] = await Promise.all([
             player.getCurrentTime(),
@@ -105,9 +113,12 @@ export const SelectedVideoCard = ({
           if (duration > 0) {
             fallbackDurationRef.current = duration;
             updateProgress(currentTime / duration, true);
+          } else {
+            runFallback();
           }
         } catch {
           // The Vimeo player can reject while it is still initializing.
+          runFallback();
         }
       }
       pollFrame = window.setTimeout(pollProgress, 250);
