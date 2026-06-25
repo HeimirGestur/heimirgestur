@@ -80,6 +80,10 @@ export const HlsVideo = ({
     video.addEventListener("ended", handleSeekedOrEnded);
 
     if (autoPlay) {
+      // Ensure muted is set explicitly before attempting play —
+      // some browsers block autoplay unless muted is applied at the
+      // exact moment play() is called.
+      video.muted = true;
       const tryPlay = () => {
         video.play().catch(() => {
           // Autoplay can be blocked; ignore.
