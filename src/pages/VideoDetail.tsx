@@ -64,7 +64,7 @@ const VideoDetail = () => {
               if (vimeoId) {
                 return (
                   <iframe
-                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true`}
+                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true&transparent=1`}
                     loading="lazy"
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
