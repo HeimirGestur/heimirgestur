@@ -7,8 +7,8 @@ const Films = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen px-4 md:px-8 lg:px-16 pt-16 pb-24">
-        <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen flex items-center px-4 md:px-8 lg:px-16 pb-24">
+        <div className="max-w-6xl mx-auto w-full py-16">
           <VideoGrid videos={filmVideos} columns={4} />
         </div>
       </div>
