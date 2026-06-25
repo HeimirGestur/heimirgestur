@@ -135,7 +135,7 @@ export const SelectedVideoCard = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <article className="relative w-full">
-        <div ref={playerRef} className="group/player relative w-full aspect-cinema overflow-hidden bg-black">
+        <div ref={playerRef} className="group/player relative w-full aspect-video overflow-hidden bg-black">
           {!hideThumbnail && (
             <img
               src={thumbnail}
