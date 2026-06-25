@@ -15,6 +15,7 @@ export interface Video {
   videoUrl?: string; // HLS .m3u8 URL, iframe embed URL, or YouTube video ID
   isIframe?: boolean; // true if videoUrl should be loaded in an <iframe> instead of <video>
   isYoutube?: boolean; // true if videoUrl is a YouTube video ID
+  startTime?: number; // seconds to skip intro
   category: "selected" | "films" | "music-videos" | "commercials";
 }
 
