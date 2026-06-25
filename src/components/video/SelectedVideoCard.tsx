@@ -39,6 +39,7 @@ export const SelectedVideoCard = ({
   muted = true,
   onToggleMuted,
   hideThumbnail = false,
+  preload = false,
 }: SelectedVideoCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
