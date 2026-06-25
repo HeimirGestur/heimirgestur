@@ -111,8 +111,10 @@ const Photography = () => {
       <div className="fixed inset-0 flex items-center justify-center bg-background pt-16 pb-12 px-4">
         <div
           onClick={handleClick}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="relative w-full h-full cursor-pointer select-none"
-          style={{ cursor: "none" }}
+          style={{ cursor: "none", touchAction: "pan-y" }}
           onMouseMove={(e) => {
             const { left, width } = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - left;
