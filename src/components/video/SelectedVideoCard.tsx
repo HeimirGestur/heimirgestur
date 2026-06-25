@@ -163,7 +163,7 @@ export const SelectedVideoCard = ({
             ) : (
               <HlsVideo
                 src={videoUrl}
-                poster={thumbnail}
+                poster={hideThumbnail ? undefined : thumbnail}
                 autoPlay
                 muted={muted}
                 loop
