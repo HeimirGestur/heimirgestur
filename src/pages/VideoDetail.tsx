@@ -8,6 +8,7 @@ import { mapCmsVideo, type CmsVideo } from "@/hooks/usePortfolioContent";
 import { getStartTime, appendVimeoStart } from "@/lib/videoStartTimes";
 
 const VideoDetail = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
 
