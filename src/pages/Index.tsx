@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SelectedVideoCard } from "@/components/video/SelectedVideoCard";
 import { ProgressBar } from "@/components/video/ProgressBar";
