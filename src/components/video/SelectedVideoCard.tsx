@@ -136,16 +136,18 @@ export const SelectedVideoCard = ({
     >
       <article className="relative w-full">
         <div ref={playerRef} className="group/player relative w-full aspect-cinema overflow-hidden bg-black">
-          <img
-            src={thumbnail}
-            alt={title}
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-            className={`absolute inset-0 z-[3] h-full w-full object-contain transition-opacity duration-700 ${
-              showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
-            }`}
-          />
+          {!hideThumbnail && (
+            <img
+              src={thumbnail}
+              alt={title}
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+              className={`absolute inset-0 z-[3] h-full w-full object-contain transition-opacity duration-700 ${
+                showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          )}
 
           {videoUrl && showVideo && (
             isIframe ? (
