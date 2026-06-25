@@ -58,13 +58,13 @@ const VideoDetail = () => {
 
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-6xl">
-          <div className="aspect-cinema bg-background/10 rounded overflow-hidden mb-8">
+          <div className="aspect-cinema bg-black rounded overflow-hidden mb-8">
             {(() => {
               const vimeoId = (video as { vimeo_id?: string }).vimeo_id;
               if (vimeoId) {
                 return (
                   <iframe
-                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true`}
+                    src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&responsive=true&transparent=1`}
                     loading="lazy"
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
@@ -91,7 +91,7 @@ const VideoDetail = () => {
               if (video.isIframe) {
                 return (
                   <iframe
-                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true`}
+                    src={`${video.videoUrl.startsWith("http") ? video.videoUrl : `https://player.vimeo.com/video/${video.videoUrl}`}?autoplay=1&responsive=true&transparent=1`}
                     loading="lazy"
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
