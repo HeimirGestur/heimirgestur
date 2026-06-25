@@ -119,11 +119,6 @@
     font-family: var(--font-sans);
   }
 
-  html,
-  body {
-    background-color: black;
-  }
-
   :fullscreen,
   :-webkit-full-screen,
   :-moz-full-screen {
@@ -131,10 +126,6 @@
   }
 
   ::backdrop {
-    background-color: black !important;
-  }
-
-  :-webkit-full-screen-ancestor {
     background-color: black !important;
   }
 }
