@@ -57,7 +57,7 @@ const Photography = () => {
     if (autoRef.current) clearInterval(autoRef.current);
     autoRef.current = setInterval(() => {
       setIndex((i) => (i + 1) % photos.length);
-    }, 5000);
+    }, 3000);
   }, []);
 
   useEffect(() => {
