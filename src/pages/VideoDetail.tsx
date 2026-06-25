@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +9,10 @@ import { mapCmsVideo, type CmsVideo } from "@/hooks/usePortfolioContent";
 
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: cmsVideo } = useQuery({
     queryKey: ["video-detail", id],
