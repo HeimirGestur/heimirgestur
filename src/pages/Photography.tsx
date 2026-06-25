@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 
 const photos = [
@@ -19,10 +19,19 @@ const photos = [
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782388087/7small22_u2hspc.jpg",
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782388088/8small2_fakncv.jpg",
   "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/20750009small_nlw1js.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360014small_cvl0gf.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360012_small_pbevnt.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360013small_ur14u4.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360029small_wi2ufw.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385314/18360002small_gcfswp.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18350011small_q1xyv2.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360007small_m0bify.jpg",
+  "https://res.cloudinary.com/dltrwdadi/image/upload/v1782385313/18360006small_ehsjny.jpg",
 ];
 
 const Photography = () => {
   const [index, setIndex] = useState(0);
+  const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,14 +45,38 @@ const Photography = () => {
     setIndex((i) => (i - 1 + photos.length) % photos.length);
   }, []);
 
+  const goNext = useCallback(() => {
+    next();
+    resetAuto();
+  }, [next]);
+
+  const goPrev = useCallback(() => {
+    prev();
+    resetAuto();
+  }, [prev]);
+
+  const resetAuto = useCallback(() => {
+    if (autoRef.current) clearInterval(autoRef.current);
+    autoRef.current = setInterval(() => {
+      setIndex((i) => (i + 1) % photos.length);
+    }, 5000);
+  }, []);
+
+  useEffect(() => {
+    resetAuto();
+    return () => {
+      if (autoRef.current) clearInterval(autoRef.current);
+    };
+  }, [resetAuto]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") next();
-      else if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight" || e.key === " ") goNext();
+      else if (e.key === "ArrowLeft") goPrev();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev]);
+  }, [goNext, goPrev]);
 
   // Preload neighbors
   useEffect(() => {
@@ -56,8 +89,8 @@ const Photography = () => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, width } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
-    if (x < width / 2) prev();
-    else next();
+    if (x < width / 2) goPrev();
+    else goNext();
   };
 
   return (
