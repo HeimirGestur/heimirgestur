@@ -90,17 +90,17 @@ const yt = (id: string, title: string, n: number): Video => ({
 });
 
 export const musicVideos: Video[] = [
-  yt("-O8IhUxFz6s", "Baldur – DAMN IT.", 11),
   yt("xKrtmXq1Uwg", "Grísalappalísa – Þrjúhundruðsextíuogfimmdagablús", 1),
   yt("t5OlALTiQco", "Grísalappalísa – ABC", 2),
-  yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (Live á Húrra)", 3),
-  yt("sAH7HtQ8HOw", "Grísalappalísa – Kvæðaþjófurinn", 4),
-  yt("54lvlI2IRYw", "Veirumenn", 5),
-  yt("6nqVPyY0KAk", "Grísalappalísa – Hver er ég?", 6),
-  yt("cF5_sGFZ34A", "Andi – Lónólongó", 7),
-  yt("PYmAR4Z96dM", "Oyama – Siblings", 8),
-  yt("TwyNzFbJwbU", "Grísalappalísa – Skrítin birta", 9),
-  yt("YQAPMv5mE7I", "Grísalappalísa – Mjóddin", 10),
+  yt("6nqVPyY0KAk", "Grísalappalísa – Hver er ég?", 3),
+  yt("cF5_sGFZ34A", "Andi – Lónólongó", 4),
+  yt("CnPlcYhfxQA", "Grísalappalísa – Skrítin birta (Live á Húrra)", 5),
+  yt("sAH7HtQ8HOw", "Grísalappalísa – Kvæðaþjófurinn", 6),
+  yt("54lvlI2IRYw", "Veirumenn", 7),
+  yt("-O8IhUxFz6s", "Baldur – DAMN IT.", 8),
+  yt("PYmAR4Z96dM", "Oyama – Siblings", 9),
+  yt("TwyNzFbJwbU", "Grísalappalísa – Skrítin birta", 10),
+  yt("YQAPMv5mE7I", "Grísalappalísa – Mjóddin", 11),
 ];
 
 export const commercialVideos: Video[] = [
