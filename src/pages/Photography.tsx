@@ -32,6 +32,7 @@ const photos = [
 const Photography = () => {
   const [index, setIndex] = useState(0);
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
 
   const next = useCallback(() => {
