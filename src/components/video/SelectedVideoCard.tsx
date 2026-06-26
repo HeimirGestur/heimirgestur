@@ -223,7 +223,7 @@ export const SelectedVideoCard = ({
               <iframe
                 ref={iframeRef}
                 src={buildIframeAutoplayUrl(videoUrl)}
-                loading="lazy"
+                loading={preload ? "eager" : "lazy"}
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
