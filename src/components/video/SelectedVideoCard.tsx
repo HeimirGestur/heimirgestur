@@ -85,6 +85,7 @@ export const SelectedVideoCard = ({
     vimeoPlayerRef.current = player;
     let cancelled = false;
     let pollFrame = 0;
+    if (isActive) void player.play().catch(() => undefined);
 
     const updateProgress = (percent: number, fromPlayer = false) => {
       const boundedPercent = Math.max(0, Math.min(100, percent * 100));
@@ -212,8 +213,8 @@ export const SelectedVideoCard = ({
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).style.display = "none";
               }}
-              className={`absolute inset-0 z-[3] h-full w-full object-contain transition-opacity duration-700 ${
-                showVideo && (!isIframe || iframeReady) ? "opacity-0" : "opacity-100"
+              className={`absolute inset-0 z-[3] h-full w-full object-contain transition-opacity duration-200 ${
+                showVideo && (!isIframe || iframeReady || preload) ? "opacity-0" : "opacity-100"
               }`}
             />
           )}
@@ -223,7 +224,7 @@ export const SelectedVideoCard = ({
               <iframe
                 ref={iframeRef}
                 src={buildIframeAutoplayUrl(videoUrl)}
-                loading="lazy"
+                loading={preload ? "eager" : "lazy"}
                 allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                 allowFullScreen
                 tabIndex={-1}
