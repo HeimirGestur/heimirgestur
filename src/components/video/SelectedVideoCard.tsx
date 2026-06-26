@@ -85,6 +85,7 @@ export const SelectedVideoCard = ({
     vimeoPlayerRef.current = player;
     let cancelled = false;
     let pollFrame = 0;
+    if (isActive) void player.play().catch(() => undefined);
 
     const updateProgress = (percent: number, fromPlayer = false) => {
       const boundedPercent = Math.max(0, Math.min(100, percent * 100));
