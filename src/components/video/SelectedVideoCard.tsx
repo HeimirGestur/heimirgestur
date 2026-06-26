@@ -213,7 +213,7 @@ export const SelectedVideoCard = ({
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).style.display = "none";
               }}
-              className={`absolute inset-0 z-[3] h-full w-full object-contain transition-opacity duration-200 ${
+              className={`absolute inset-0 z-[3] h-full w-full object-contain ${
                 showVideo && (!isIframe || iframeReady || preload) ? "opacity-0" : "opacity-100"
               }`}
             />
